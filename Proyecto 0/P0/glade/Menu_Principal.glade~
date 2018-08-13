@@ -6,7 +6,7 @@
     <property name="width_request">800</property>
     <property name="height_request">600</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Proyecto Investigacion de Operaciones</property>
+    <property name="title" translatable="yes">Proyecto de Investigación de Operaciones</property>
     <property name="resizable">False</property>
     <child>
       <placeholder/>
@@ -29,7 +29,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
-            <property name="label" translatable="yes">Algoritmos de programacion dinamica</property>
+            <property name="label" translatable="yes">Algoritmos de programación dinámica</property>
             <property name="justify">center</property>
             <attributes>
               <attribute name="font-desc" value="Standard Symbols L Bold 10"/>
@@ -67,7 +67,6 @@
                     <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="hexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel">
@@ -75,6 +74,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Rutas más cortas</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -88,17 +93,17 @@
                         <property name="height_request">80</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="pixbuf">grafo-en-python-ponderado.png</property>
+                        <property name="pixbuf">grafociudad.png</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">True</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnP1Comenzar">
+                        <property name="label" translatable="yes">Iniciar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -113,10 +118,6 @@
                       </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="x">70</property>
-                    <property name="y">3</property>
-                  </packing>
                 </child>
               </object>
               <packing>
@@ -145,6 +146,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">TBA</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -167,8 +174,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnP2Comenzar">
+                        <property name="label" translatable="yes">Iniciar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -183,10 +190,6 @@
                       </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="x">70</property>
-                    <property name="y">3</property>
-                  </packing>
                 </child>
               </object>
               <packing>
@@ -215,6 +218,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Salir del Programa</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -237,8 +246,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnSalir">
+                        <property name="label" translatable="yes">Terminar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -254,7 +263,6 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="x">70</property>
                     <property name="y">3</property>
                   </packing>
                 </child>
@@ -285,6 +293,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">TBA</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -307,8 +321,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnP5Comenzar">
+                        <property name="label" translatable="yes">Iniciar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -324,7 +338,6 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="x">70</property>
                     <property name="y">3</property>
                   </packing>
                 </child>
@@ -355,6 +368,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">TBA</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -377,8 +396,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnP4Comenzar">
+                        <property name="label" translatable="yes">Iniciar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -394,7 +413,6 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="x">70</property>
                     <property name="y">3</property>
                   </packing>
                 </child>
@@ -425,6 +443,12 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">TBA</property>
+                        <attributes>
+                          <attribute name="style" value="oblique"/>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="2"/>
+                          <attribute name="foreground" value="#eeeeeeeeecec"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -447,8 +471,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkButton" id="btnP3Comenzar">
+                        <property name="label" translatable="yes">Iniciar</property>
                         <property name="width_request">100</property>
                         <property name="height_request">40</property>
                         <property name="visible">True</property>
@@ -464,7 +488,6 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="x">70</property>
                     <property name="y">3</property>
                   </packing>
                 </child>
@@ -489,8 +512,8 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="acerca">
-            <property name="label" translatable="yes">Acerca</property>
+          <object class="GtkButton" id="btnAcerca">
+            <property name="label" translatable="yes">Acerca de</property>
             <property name="name">acerca</property>
             <property name="width_request">100</property>
             <property name="visible">True</property>
@@ -499,8 +522,8 @@
             <property name="valign">center</property>
           </object>
           <packing>
-            <property name="x">400</property>
-            <property name="y">670</property>
+            <property name="x">460</property>
+            <property name="y">700</property>
           </packing>
         </child>
       </object>
