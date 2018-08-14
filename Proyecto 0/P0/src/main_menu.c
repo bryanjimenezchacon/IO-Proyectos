@@ -1,4 +1,19 @@
-
+/************************************************************************
+# 
+# Instituto Tecnológico de Costa Rica
+# Investigación de Operaciones Gr 40
+#
+#
+# Proyecto 0.Menú para Programas de Programación Dinámica
+#
+# Profesor: Dr.Francisco J.Torres Rojas
+#
+# Bryan Steve Jiménez Chacón
+# Patrick Maynard Gamboa
+# Dario Monestel Corella
+# 
+# II Semestre 2018
+# ************************************************************************/
 #include <gtk/gtk.h>
 
  
