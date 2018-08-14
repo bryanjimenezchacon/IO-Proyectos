@@ -25,6 +25,7 @@ OBJS=    main_menu.o
 all: $(OBJS)
 	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
 	$(CC) -o Pending src/pending.c $(LDFLAGS)
+	$(CC) -o Acerca src/acerca.c $(LDFLAGS)
 
 	./main_menu
     

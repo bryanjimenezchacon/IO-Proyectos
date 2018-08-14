@@ -52,8 +52,8 @@ int main(int argc, char *argv[])
     btn_Salir = GTK_WIDGET(gtk_builder_get_object(builder, "btnSalir"));
     btn_AcercaDe = GTK_WIDGET(gtk_builder_get_object(builder, "btnAcerca"));
 
-	gtk_widget_set_tooltip_text(P1, "Conocido como Algoritmo de Floyd, el cual determina determina la ruta más corta entre dos nodos cualquiera de la red.");
-    gtk_widget_set_tooltip_text(P2, "Conocido como Knapsack problem, el cual busca la mejor solución entre un conjunto finito de posibles soluciones a un problema. Modela una situación en la cual hay que llenar una mochila, incapaz de soportar más de un peso determinado, cada objeto a colocar en la mochila tiene un peso y valor específicos,los objetos colocados en la mochila deben maximizar el valor total sin exceder el peso máximo.");
+	gtk_widget_set_tooltip_text(P1, "Inicia el programa del algoritmo Floyd-Warshall, el cual encuentra la ruta mas corta para llegar de un punto a otro en grafos dirigidos ponderados.");
+    gtk_widget_set_tooltip_text(P2, "Inicia el programa del algoritmo Knapsack problem, el cual busca encontrar la mejor solución a un conjunto posibilidades a las cuales tienen un valor y un costo(peso) pero existe una 'mochila' con capacidad limitada y definida, por lo que se debe maximizar la ganancia sin exceder el límite.");
     gtk_widget_set_tooltip_text(P3, "TBA");
     gtk_widget_set_tooltip_text(P4, "TBA");
     gtk_widget_set_tooltip_text(P5, "TBA");
@@ -96,6 +96,10 @@ void on_btnP4Comenzar_clicked()
 void on_btnP5Comenzar_clicked()
 {
     system("./Pending &");
+}
+void on_btnAcerca_clicked()
+{
+    system("./Acerca &");
 }
 void on_btnSalir_clicked()
 {
