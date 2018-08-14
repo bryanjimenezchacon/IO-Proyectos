@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     btn_AcercaDe = GTK_WIDGET(gtk_builder_get_object(builder, "btnAcerca"));
 
 	gtk_widget_set_tooltip_text(P1, "Inicia el programa del algoritmo Floyd-Warshall, el cual encuentra la ruta mas corta para llegar de un punto a otro en grafos dirigidos ponderados.");
-    gtk_widget_set_tooltip_text(P2, "Inicia el programa del algoritmo Knapsack problem, el cual busca encontrar la mejor solución a un conjunto posibilidades a las cuales tienen un valor y un costo(peso) pero existe una 'mochila' con capacidad limitada y definida, por lo que se debe maximizar la ganancia sin exceder el límite.");
+    gtk_widget_set_tooltip_text(P2, "Inicia el programa del algoritmo Knapsack problem, el cual busca encontrar la mejor solución con un conjunto de posibilidades a las cuales tienen un valor y un costo(peso), existe una 'mochila' con capacidad conocida para transportar los objetos, por lo que se debe maximizar la ganancia sin exceder el límite.");
     gtk_widget_set_tooltip_text(P3, "TBA");
     gtk_widget_set_tooltip_text(P4, "TBA");
     gtk_widget_set_tooltip_text(P5, "TBA");

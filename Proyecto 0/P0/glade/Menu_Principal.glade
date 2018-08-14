@@ -8,6 +8,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Proyecto de Investigación de Operaciones</property>
     <property name="resizable">False</property>
+    <property name="icon">icon.png</property>
     <child>
       <placeholder/>
     </child>
