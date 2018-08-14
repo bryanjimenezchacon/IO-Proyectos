@@ -73,9 +73,32 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+void on_btnP1Comenzar_clicked()
+{
+    system("./Pending &");
+}
+
+void on_btnP2Comenzar_clicked()
+{
+    system("./Pending &");
+}
+
+void on_btnP3Comenzar_clicked()
+{
+    system("./Pending &");
+}
+
+void on_btnP4Comenzar_clicked()
+{
+    system("./Pending &");
+}
+
+void on_btnP5Comenzar_clicked()
+{
+    system("./Pending &");
+}
 void on_btnSalir_clicked()
 {
     gtk_main_quit();
 }
-
 
