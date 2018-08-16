@@ -95,7 +95,7 @@ void on_btnP1Comenzar_clicked()
 
 void on_btnP2Comenzar_clicked()
 {
-    system("./Pending &");
+    system("./Mochila &");
 }
 
 void on_btnP3Comenzar_clicked()
