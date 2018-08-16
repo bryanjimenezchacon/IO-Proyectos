@@ -84,13 +84,14 @@ int main(int argc, char *argv[])
  
     gtk_widget_show(window);                
     gtk_main();
- 
+    
+    exit(3);
     return 0;
 }
 
 void on_btnP1Comenzar_clicked()
 {
-    system("./Pending &");
+    system("./Rutas_Optimas &");
 }
 
 void on_btnP2Comenzar_clicked()
@@ -118,6 +119,10 @@ void on_btnAcerca_clicked()
 }
 void on_btnSalir_clicked()
 {
+    gtk_main_quit();
+}
+
+void terminar() {
     gtk_main_quit();
 }
 

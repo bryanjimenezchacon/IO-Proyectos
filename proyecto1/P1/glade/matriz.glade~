@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">2</property>
+    <property name="upper">10</property>
+    <property name="value">2</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkWindow" id="matriz">
+    <property name="can_focus">False</property>
+    <property name="default_width">1280</property>
+    <property name="default_height">720</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkPaned">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkFixed">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkScale">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="adjustment">adjustment1</property>
+                <property name="round_digits">1</property>
+                <property name="digits">0</property>
+              </object>
+              <packing>
+                <property name="x">92</property>
+                <property name="y">656</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="matriz_entrada">
+                <property name="width_request">400</property>
+                <property name="height_request">400</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkEntry" id="Test">
+                    <property name="name">Test</property>
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="x">89</property>
+                    <property name="y">102</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="x">20</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="matriz_resultado">
+                <property name="width_request">400</property>
+                <property name="height_request">400</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">500</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">True</property>
+            <property name="shrink">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

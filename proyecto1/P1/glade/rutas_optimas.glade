@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">2</property>
+    <property name="upper">10</property>
+    <property name="value">2</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkWindow" id="rutas">
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="default_width">1280</property>
+    <property name="default_height">720</property>
+    <property name="destroy_with_parent">True</property>
+    <signal name="destroy" handler="terminar" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkPaned">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Algoritmo de Floyd</property>
+          </object>
+          <packing>
+            <property name="resize">False</property>
+            <property name="shrink">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkFixed" id="mEntrada">
+                <property name="width_request">400</property>
+                <property name="height_request">400</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">75</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Entrada</property>
+              </object>
+              <packing>
+                <property name="x">290</property>
+                <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="scroll">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="adjustment">adjustment1</property>
+                <property name="fill_level">10</property>
+                <property name="round_digits">1</property>
+                <property name="digits">0</property>
+                <property name="value_pos">right</property>
+                <signal name="value-changed" handler="on_scroll_value_changed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">590</property>
+                <property name="y">600</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="mRespuesta">
+                <property name="width_request">400</property>
+                <property name="height_request">400</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">705</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Resultado
+</property>
+              </object>
+              <packing>
+                <property name="x">920</property>
+                <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Tamaño</property>
+              </object>
+              <packing>
+                <property name="x">590</property>
+                <property name="y">550</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Cambiar nombres</property>
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="button_pressed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">917</property>
+                <property name="y">550</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">True</property>
+            <property name="shrink">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
