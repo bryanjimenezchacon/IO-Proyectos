@@ -19,7 +19,7 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *test, *label, *combo, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta;
+GtkWidget *scroll , *test, *label, *combo, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
 int nodos = 2;
 
@@ -34,6 +34,7 @@ void crearGrids(){
 }
 
 
+//Crea nueva matriz con n*n sacados del slider, y destruye la vieja.
 void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, GtkEntry *nombresI[10], GtkEntry *nombresJ[10]){
 
     int i, j;
@@ -43,7 +44,7 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
     {
         
         for(j = 1; j < nodos+1; j++)
-        {               
+        {             
             if(i==1)
             { 
                 sprintf(value, "%c", 64+j);
@@ -72,10 +73,14 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
                 }
             if(i==j)
             {
-                GtkWidget *casilla = gtk_label_new ("0");
+                GtkWidget *casilla = gtk_entry_new();
+                gtk_entry_set_max_length (GTK_ENTRY(casilla), 1);
+                gtk_entry_set_width_chars(GTK_ENTRY(casilla),3);
+                gtk_entry_set_text(GTK_ENTRY(casilla),"0");
                 gtk_grid_attach(GTK_GRID(grid), casilla, i, j, 1, 1);
-                gtk_widget_set_sensitive (casilla,boolean);
+                gtk_widget_set_sensitive (casilla,0);
                 gtk_widget_show (casilla);
+                
 
             }
             else
@@ -240,11 +245,61 @@ void button_pressed(){
 
 }
 
+void SignalSalir()
+{
+    gtk_widget_destroy(GTK_WIDGET(window));
+}
+
+void SignalAbrir(gpointer window)
+{
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Abrir archivo", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+    gtk_widget_show_all(dialog);
+    gint resp = gtk_dialog_run(GTK_DIALOG(dialog));
+    if(resp == GTK_RESPONSE_OK)
+    {
+        g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+    }
+    else
+    {
+        g_print("Cancel");
+    }
+    gtk_widget_destroy(dialog);
+}
+
+void SignalSalvar()
+{
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Salvar archivo", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+    gtk_widget_show_all(dialog);
+    gint resp = gtk_dialog_run(GTK_DIALOG(dialog));
+    if(resp == GTK_RESPONSE_OK)
+    {
+        g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+    }
+    else
+    {
+        g_print("Cancel");
+    }
+    gtk_widget_destroy(dialog);
+
+}
+
+void OpenDialog_Cancelar()
+{
+    gtk_widget_destroy(GTK_WIDGET(openDialog));
+}
+
+void SaveDialog_Cancelar()
+{
+    gtk_widget_destroy(GTK_WIDGET(saveDialog));
+}
+
 int main(int argc, char *argv[])
 {
 
     GtkBuilder      *builder; 
-    GtkWidget       *window;
+    
 
  
     gtk_init(&argc, &argv);
