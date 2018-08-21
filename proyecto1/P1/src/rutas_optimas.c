@@ -19,7 +19,7 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado;
+GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
 int** matrizEntrada;
 int** matrizRespuesta;
@@ -130,7 +130,22 @@ int on_scroll_value_changed(GtkScale *scale){
 
     destruirMatriz(mEntrada);
     destruirMatriz(mRespuesta);
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Partida));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Destino));
+    gtk_widget_set_sensitive(buttonRutas, 0);
     nodos = (int)gtk_range_get_value(GTK_RANGE(scale));
+    crearGrids();
+    crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
+    crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
+}
+
+void limpiar(){
+
+    destruirMatriz(mEntrada);
+    destruirMatriz(mRespuesta);
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Partida));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Destino));
+    gtk_widget_set_sensitive(buttonRutas, 0);
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
@@ -243,7 +258,7 @@ void guardar(char* archivo)
 
 void abrir(char* archivo)
 {    
-
+    limpiar();
     FILE *file;
     file = fopen(archivo, "r");
     char c[10];
@@ -336,7 +351,7 @@ void SaveDialog_Cancelar()
 }
 
 //Crea una matriz de ints en memoria
-int** inicializarMatriz(int nodos)
+int** inicializarMatriz(int nodos, int x)
 {
     int** matriz;
     matriz = calloc(nodos,sizeof(int*));
@@ -347,7 +362,7 @@ int** inicializarMatriz(int nodos)
 
         for(int n=0;n<nodos;n++)
         {
-            matriz[m][n] = INF;
+            matriz[m][n] = x;
         }
     }
     return matriz;
@@ -445,8 +460,8 @@ void siguiente_clicked(){
 
     if(k == 0)
     {
-        matrizEntrada = inicializarMatriz(nodos);
-        matrizRespuesta = inicializarMatriz(nodos);
+        matrizEntrada = inicializarMatriz(nodos, INF);
+        matrizRespuesta = inicializarMatriz(nodos, 0);
         anhadirInput(matrizEntrada);
         gtk_button_set_label(GTK_BUTTON(siguiente), "Siguiente");        
 
@@ -464,6 +479,7 @@ void siguiente_clicked(){
         floyd(nodos);
         sprintf(value, "Resultado D(%i)", k+1);
         gtk_label_set_text(GTK_LABEL(resultado), value);
+        gtk_widget_set_sensitive(buttonRutas, 1);
         gtk_widget_set_sensitive (siguiente,0);
     }
     
@@ -492,6 +508,38 @@ void cambiarNombre_clicked()
     }
 }
 
+void buttonRutas_clicked()
+{
+    
+
+    for(int j = 1; j<nodos+1; j++)
+    {
+        GtkWidget *z;
+        z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),0,j);
+        const gchar *pointer;
+        pointer = gtk_entry_get_text(GTK_ENTRY(z));
+        gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT(comboBoxText_Partida), j-1, pointer);
+        gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT(comboBoxText_Destino), j-1, pointer);
+    }
+    gtk_combo_box_set_active(GTK_COMBO_BOX(comboBoxText_Partida), 0);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(comboBoxText_Destino), 0);
+    imprimirMatriz(matrizRespuesta);
+    gtk_widget_show(window_aux);
+    
+}
+
+void rutas_cerrar()
+{
+    gtk_widget_hide(window_aux);
+}
+
+void rutas_calcular()
+{
+    //g_print("%s", gtk_combo_box_get_active_id (GTK_COMBO_BOX(comboBoxText)));
+    g_print("%i", gtk_combo_box_get_active ((GTK_COMBO_BOX(comboBoxText_Partida))));
+    g_print("%i", gtk_combo_box_get_active ((GTK_COMBO_BOX(comboBoxText_Destino))));
+}
+
 
 
 
@@ -508,9 +556,14 @@ int main(int argc, char *argv[])
     gtk_builder_add_from_file (builder, "glade/rutas_optimas.glade", NULL);
  
     window = GTK_WIDGET(gtk_builder_get_object(builder, "rutas"));
+    buttonRutas = GTK_WIDGET(gtk_builder_get_object(builder, "buttonRutas"));
+    gtk_widget_set_sensitive(buttonRutas, 0);
+    window_aux = GTK_WIDGET(gtk_builder_get_object(builder, "window_aux"));
     gtk_builder_connect_signals(builder, NULL);
 
     scroll = GTK_WIDGET(gtk_builder_get_object(builder, "scroll"));
+    comboBoxText_Partida = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Partida"));
+    comboBoxText_Destino = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Destino"));
     siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "siguiente"));
     label = GTK_WIDGET(gtk_builder_get_object(builder, "label"));
     mEntrada = GTK_WIDGET(gtk_builder_get_object(builder, "mEntrada"));
