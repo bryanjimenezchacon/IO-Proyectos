@@ -2,38 +2,6 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkFileChooserDialog">
-    <property name="can_focus">False</property>
-    <property name="type_hint">dialog</property>
-    <property name="action">save</property>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -115,7 +83,7 @@
                 <signal name="value-changed" handler="on_scroll_value_changed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">590</property>
+                <property name="x">50</property>
                 <property name="y">600</property>
               </packing>
             </child>
@@ -151,26 +119,26 @@
                 <property name="height_request">80</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Tamaño</property>
+                <property name="label" translatable="yes">Cantidad de nodos</property>
               </object>
               <packing>
-                <property name="x">590</property>
+                <property name="x">40</property>
                 <property name="y">550</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Cambiar nombres</property>
+              <object class="GtkButton" id="siguiente">
+                <property name="label" translatable="yes">Resolver</property>
                 <property name="width_request">100</property>
-                <property name="height_request">80</property>
+                <property name="height_request">60</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="button_pressed" swapped="no"/>
+                <signal name="clicked" handler="siguiente_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="x">917</property>
-                <property name="y">550</property>
+                <property name="y">600</property>
               </packing>
             </child>
             <child>
@@ -225,6 +193,21 @@
                   </object>
                 </child>
               </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="cambiarNombre">
+                <property name="label" translatable="yes">Cambiar nombre</property>
+                <property name="width_request">100</property>
+                <property name="height_request">60</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="cambiarNombre_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">290</property>
+                <property name="y">600</property>
+              </packing>
             </child>
           </object>
           <packing>

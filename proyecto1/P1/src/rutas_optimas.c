@@ -19,10 +19,11 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *test, *label, *combo, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog;
+GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
-GList *casillasEntrada, *casillasRespuesta;
-int nodos = 2;
+int** matrizEntrada;
+int** matrizRespuesta;
+int nodos = 2, k = 0;
 
 void crearGrids(){
     gridEntrada = gtk_grid_new();
@@ -40,6 +41,10 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
 
     int i, j;
     char value[2];
+    k = 0;
+    gtk_widget_set_sensitive (siguiente,1);
+    gtk_button_set_label(GTK_BUTTON(siguiente), "Resolver");
+    gtk_label_set_text(GTK_LABEL(resultado), "Resultado"); 
     
     for (i = 1; i < nodos+1; i++)
     {
@@ -80,12 +85,6 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
                 gtk_entry_set_text(GTK_ENTRY(casilla),"0");
                 gtk_grid_attach(GTK_GRID(grid), casilla, i, j, 1, 1);
                 gtk_widget_set_sensitive (casilla,0);
-                if(boolean)
-                {
-                   g_list_append(casillasEntrada,casilla);
-                }
-                else 
-                    g_list_append(casillasRespuesta,casilla);
                 gtk_widget_show (casilla);
                 
 
@@ -98,12 +97,6 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
                 gtk_entry_set_text(GTK_ENTRY(casilla),"*");
                 gtk_widget_set_sensitive (casilla,boolean);
                 gtk_widget_show (casilla);
-                if(boolean)
-                {
-                   g_list_append(casillasEntrada,casilla);
-                }
-                else 
-                    g_list_append(casillasRespuesta,casilla);
                 //gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
             }
         }
@@ -337,36 +330,64 @@ void pasarResultado(int** matriz)
 
 
 
-void floyd(int nodos, int** mFloyd, int** mRespuesta){
+void floyd(int nodos){
 
     //Rellenar matriz con datos de usuario
     
     //Floyd
-    for(int k=0;k<nodos;k++)
-    {
         for(int i=0;i<nodos;i++)
         {
             for(int j=0;j<nodos;j++)
             {
-                int temp = mFloyd[i][k] + mFloyd[k][j];
-                if(mFloyd[i][j] > temp)
+                int temp = matrizEntrada[i][k] + matrizEntrada[k][j];
+                if(matrizEntrada[i][j] > temp)
                 {
-                    mFloyd[i][j] = temp;
-                    mRespuesta[i][j] = k;
+                    matrizEntrada[i][j] = temp;
+                    matrizRespuesta[i][j] = k;
                 }
             }
         }
-    } 
-    imprimirMatriz(mFloyd);  
-    pasarResultado(mFloyd);
+        
+    imprimirMatriz(matrizEntrada);  
+    pasarResultado(matrizEntrada);
 }
 
 //Salva el nombre de los nodos.
-void button_pressed(){
-    int** matrizEntrada = inicializarMatriz(nodos);
-    int** matrizRespuesta = inicializarMatriz(nodos);
-    anhadirInput(matrizEntrada);
-    floyd(nodos,matrizEntrada,matrizRespuesta);
+void siguiente_clicked(){
+    char value[40];
+
+    if(k == 0)
+    {
+        matrizEntrada = inicializarMatriz(nodos);
+        matrizRespuesta = inicializarMatriz(nodos);
+        anhadirInput(matrizEntrada);
+        gtk_button_set_label(GTK_BUTTON(siguiente), "Siguiente");        
+
+    }
+    if(k < nodos-1)
+    {
+        floyd(nodos);
+        k = k+1;
+        sprintf(value, "Resultado D(%i)", k );
+        gtk_label_set_text(GTK_LABEL(resultado), value);        
+        
+    }
+    else
+    {
+        floyd(nodos);
+        sprintf(value, "Resultado D(%i)", k+1);
+        gtk_label_set_text(GTK_LABEL(resultado), value);
+        gtk_widget_set_sensitive (siguiente,0);
+    }
+    
+    
+    
+  
+    
+}
+
+void cambiarNombre_clicked()
+{
     if(chequearLetras() & buscarRepetidos())
     {
         for(int i = 0; i < nodos; i++)
@@ -380,8 +401,6 @@ void button_pressed(){
     {
         copiarNombres();
     }
-  
-
 }
 
 int main(int argc, char *argv[])
@@ -400,11 +419,11 @@ int main(int argc, char *argv[])
     gtk_builder_connect_signals(builder, NULL);
 
     scroll = GTK_WIDGET(gtk_builder_get_object(builder, "scroll"));
-    test = GTK_WIDGET(gtk_builder_get_object(builder, "test"));
+    siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "siguiente"));
     label = GTK_WIDGET(gtk_builder_get_object(builder, "label"));
-    combo = GTK_WIDGET(gtk_builder_get_object(builder, "combo"));
     mEntrada = GTK_WIDGET(gtk_builder_get_object(builder, "mEntrada"));
     mRespuesta = GTK_WIDGET(gtk_builder_get_object(builder, "mRespuesta"));
+    resultado = GTK_WIDGET(gtk_builder_get_object(builder, "resultado"));
 
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, 2, -1, nombresEntradaI, nombresEntradaJ);
