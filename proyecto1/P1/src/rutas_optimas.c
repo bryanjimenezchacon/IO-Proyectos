@@ -36,6 +36,8 @@ void crearGrids(){
 }
 
 
+
+
 //Crea nueva matriz con n*n sacados del slider, y destruye la vieja.
 void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, GtkEntry *nombresI[10], GtkEntry *nombresJ[10]){
 
@@ -132,13 +134,11 @@ int on_scroll_value_changed(GtkScale *scale){
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
-
-    
-    
-
 }
-void terminar() {
-    gtk_main_quit();
+
+void terminar() 
+{
+    //gtk_main_quit();
 }
 
 
@@ -199,6 +199,103 @@ void SignalSalir()
     gtk_widget_destroy(GTK_WIDGET(window));
 }
 
+void guardar(char* archivo)
+{
+    GtkWidget *z;
+    FILE *file;
+    file = fopen(archivo, "w");
+    fprintf(file, "%i\n", nodos);
+
+    for(int j = 1; j<nodos+1; j++)
+    {
+        z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),0,j);
+        const gchar *pointer;
+        pointer = gtk_entry_get_text(GTK_ENTRY(z));
+        fprintf(file, "%s", pointer);
+        fprintf(file, "%s\n", "");
+    }
+
+    for(int i = 1; i<nodos+1; i++)
+    {
+        for(int j = 1; j<nodos+1; j++)
+        {
+            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
+            const gchar *pointer;
+            pointer = gtk_entry_get_text(GTK_ENTRY(z));
+            char c = gtk_entry_get_text(GTK_ENTRY(z))[0];
+            if(c == 42){
+                fprintf(file, "%i", INF);
+                fprintf(file, "%s\n", "");
+            }
+            else
+            {
+                int x = atoi(pointer);
+                fprintf(file, "%i", x);
+                fprintf(file, "%s\n", "");
+            }
+            
+
+        }
+    }
+
+    fclose(file);
+}
+
+void abrir(char* archivo)
+{    
+
+    FILE *file;
+    file = fopen(archivo, "r");
+    char c[10];
+    fgets(c, sizeof(c), file);
+    nodos = atoi(c);
+
+    destruirMatriz(mEntrada);
+    destruirMatriz(mRespuesta);
+    crearGrids();
+    crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
+    crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
+
+    for(int i = 1; i < nodos+1; i++)
+    {
+        fgets(c, sizeof(c), file);
+        GtkWidget *z, *y;
+        z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),0,i);
+        y = gtk_grid_get_child_at(GTK_GRID(gridEntrada),i,0);
+        gtk_entry_set_text(GTK_ENTRY(z),c);
+        gtk_entry_set_text(GTK_ENTRY(y),c);
+        z = gtk_grid_get_child_at(GTK_GRID(gridRespuesta),0,i);
+        y = gtk_grid_get_child_at(GTK_GRID(gridRespuesta),i,0);
+        gtk_entry_set_text(GTK_ENTRY(z),c);
+        gtk_entry_set_text(GTK_ENTRY(y),c);
+    }
+
+    for(int i = 1; i < nodos+1; i++)
+    {
+        for(int j = 1; j< nodos+1; j++)
+        {
+            fgets(c, sizeof(c), file);
+            GtkWidget *z;
+            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);          
+            strtok(c, "\n");
+            int x = atoi(c);
+            if(x == INF){
+                gtk_entry_set_text(GTK_ENTRY(z),"*");
+            }
+            else
+            {
+                gtk_entry_set_text(GTK_ENTRY(z),c);
+            }
+            
+            
+        }
+    }
+
+
+    fclose(file);
+}
+
+
 void SignalAbrir(gpointer window)
 {
     GtkWidget *dialog;
@@ -207,11 +304,8 @@ void SignalAbrir(gpointer window)
     gint resp = gtk_dialog_run(GTK_DIALOG(dialog));
     if(resp == GTK_RESPONSE_OK)
     {
+        abrir(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
         g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
-    }
-    else
-    {
-        g_print("Cancel");
     }
     gtk_widget_destroy(dialog);
 }
@@ -225,10 +319,7 @@ void SignalSalvar()
     if(resp == GTK_RESPONSE_OK)
     {
         g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
-    }
-    else
-    {
-        g_print("Cancel");
+        guardar(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
     }
     gtk_widget_destroy(dialog);
 
@@ -244,6 +335,7 @@ void SaveDialog_Cancelar()
     gtk_widget_destroy(GTK_WIDGET(saveDialog));
 }
 
+//Crea una matriz de ints en memoria
 int** inicializarMatriz(int nodos)
 {
     int** matriz;
@@ -258,7 +350,6 @@ int** inicializarMatriz(int nodos)
             matriz[m][n] = INF;
         }
     }
-    //g_print("%i", matriz[1][0]);
     return matriz;
 }
 
@@ -274,25 +365,21 @@ void imprimirMatriz(int** matriz)
     }
 }
 
+//Pasa los datos ingresados por el usuario a la matriz en memoria
 void anhadirInput(int** matriz)
 {
     GtkWidget *z;
-
-    
-
-    // gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
     for(int i = 1; i < nodos+1; i++){
-        g_print("%s\n", "");
         for(int j = 1; j < nodos+1; j++)
         {
             z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
-            //g_print("%c",gtk_entry_get_text(GTK_ENTRY(z))[0]);
             if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
-                matriz[i-1][j-1] = gtk_entry_get_text(GTK_ENTRY(z))[0] - '0';
+                const gchar *g; 
+                g = gtk_entry_get_text(GTK_ENTRY(z));
+                int x = atoi(g);
+                matriz[i-1][j-1] = x;
             }
             
-            //g_print("%i", matriz[i-1][j-1]);
-            //matriz[0][0] = 2;
         }
         
 
@@ -300,10 +387,11 @@ void anhadirInput(int** matriz)
 
 }
 
+//Muestra el resultado en la matriz de resultado
 void pasarResultado(int** matriz)
 {
     GtkWidget *z;
-    char c[12];
+    char c[20];
     
     for(int i = 1; i<nodos+1; i++)
     {
@@ -312,7 +400,6 @@ void pasarResultado(int** matriz)
             z = gtk_grid_get_child_at(GTK_GRID(gridRespuesta),j,i);
             sprintf(c, "%d", matriz[i-1][j-1]);
             
-            //gtk_entry_set_text(GTK_ENTRY(z),sprintf(c, "%d", matriz[1][1]));
             if(matriz[i-1][j-1] == INF){
                 gtk_entry_set_text(GTK_ENTRY(z),"*");
             }
@@ -330,9 +417,9 @@ void pasarResultado(int** matriz)
 
 
 
-void floyd(int nodos){
 
-    //Rellenar matriz con datos de usuario
+void floyd(int nodos)
+{
     
     //Floyd
         for(int i=0;i<nodos;i++)
@@ -352,7 +439,7 @@ void floyd(int nodos){
     pasarResultado(matrizEntrada);
 }
 
-//Salva el nombre de los nodos.
+//Resuelve Floyd paso por paso
 void siguiente_clicked(){
     char value[40];
 
@@ -386,6 +473,8 @@ void siguiente_clicked(){
     
 }
 
+//Salva el nombre de los nodos.
+
 void cambiarNombre_clicked()
 {
     if(chequearLetras() & buscarRepetidos())
@@ -402,6 +491,9 @@ void cambiarNombre_clicked()
         copiarNombres();
     }
 }
+
+
+
 
 int main(int argc, char *argv[])
 {
