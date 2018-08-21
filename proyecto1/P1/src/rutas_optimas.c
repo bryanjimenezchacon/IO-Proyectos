@@ -148,31 +148,7 @@ void terminar() {
     gtk_main_quit();
 }
 
-void testGrid(int** matriz)
-{
-    GtkWidget *z;
 
-    
-
-    // gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
-    for(int i = 1; i < nodos+1; i++){
-        g_print("%s\n", "");
-        for(int j = 1; j < nodos+1; j++)
-        {
-            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
-            //g_print("%c",gtk_entry_get_text(GTK_ENTRY(z))[0]);
-            if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
-                matriz[i-1][j-1] = gtk_entry_get_text(GTK_ENTRY(z))[0] - '0';
-            }
-            
-            //g_print("%i", matriz[i-1][j-1]);
-            //matriz[0][0] = 2;
-        }
-        
-
-    }
-
-}
 
 
 
@@ -305,6 +281,59 @@ void imprimirMatriz(int** matriz)
     }
 }
 
+void anhadirInput(int** matriz)
+{
+    GtkWidget *z;
+
+    
+
+    // gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
+    for(int i = 1; i < nodos+1; i++){
+        g_print("%s\n", "");
+        for(int j = 1; j < nodos+1; j++)
+        {
+            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
+            //g_print("%c",gtk_entry_get_text(GTK_ENTRY(z))[0]);
+            if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
+                matriz[i-1][j-1] = gtk_entry_get_text(GTK_ENTRY(z))[0] - '0';
+            }
+            
+            //g_print("%i", matriz[i-1][j-1]);
+            //matriz[0][0] = 2;
+        }
+        
+
+    }
+
+}
+
+void pasarResultado(int** matriz)
+{
+    GtkWidget *z;
+    char c[12];
+    
+    for(int i = 1; i<nodos+1; i++)
+    {
+        for(int j = 1; j<nodos+1; j++)
+        {
+            z = gtk_grid_get_child_at(GTK_GRID(gridRespuesta),j,i);
+            sprintf(c, "%d", matriz[i-1][j-1]);
+            
+            //gtk_entry_set_text(GTK_ENTRY(z),sprintf(c, "%d", matriz[1][1]));
+            if(matriz[i-1][j-1] == INF){
+                gtk_entry_set_text(GTK_ENTRY(z),"*");
+            }
+            else
+            {
+                gtk_entry_set_text(GTK_ENTRY(z),c);
+            }
+            
+        }
+    }
+}
+
+
+
 
 
 
@@ -329,13 +358,14 @@ void floyd(int nodos, int** mFloyd, int** mRespuesta){
         }
     } 
     imprimirMatriz(mFloyd);  
+    pasarResultado(mFloyd);
 }
 
 //Salva el nombre de los nodos.
 void button_pressed(){
     int** matrizEntrada = inicializarMatriz(nodos);
     int** matrizRespuesta = inicializarMatriz(nodos);
-    testGrid(matrizEntrada);
+    anhadirInput(matrizEntrada);
     floyd(nodos,matrizEntrada,matrizRespuesta);
     if(chequearLetras() & buscarRepetidos())
     {
