@@ -21,6 +21,7 @@
 
 GtkWidget *scroll , *test, *label, *combo, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
+GList *casillasEntrada, *casillasRespuesta;
 int nodos = 2;
 
 void crearGrids(){
@@ -79,6 +80,12 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
                 gtk_entry_set_text(GTK_ENTRY(casilla),"0");
                 gtk_grid_attach(GTK_GRID(grid), casilla, i, j, 1, 1);
                 gtk_widget_set_sensitive (casilla,0);
+                if(boolean)
+                {
+                   g_list_append(casillasEntrada,casilla);
+                }
+                else 
+                    g_list_append(casillasRespuesta,casilla);
                 gtk_widget_show (casilla);
                 
 
@@ -91,6 +98,13 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
                 gtk_entry_set_text(GTK_ENTRY(casilla),"*");
                 gtk_widget_set_sensitive (casilla,boolean);
                 gtk_widget_show (casilla);
+                if(boolean)
+                {
+                   g_list_append(casillasEntrada,casilla);
+                }
+                else 
+                    g_list_append(casillasRespuesta,casilla);
+                //gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
             }
         }
     
@@ -99,6 +113,8 @@ void crearMatriz(GtkWidget *grid, GtkWidget *container, int nodos, int boolean, 
     gtk_widget_show (grid);
 
 }
+
+
 
 //Destruye las matrices y libera la memoria.
 void destruirMatriz(GtkWidget *container)
@@ -129,51 +145,36 @@ int on_scroll_value_changed(GtkScale *scale){
 
 }
 void terminar() {
-    //gtk_main_quit();
+    gtk_main_quit();
 }
 
+void testGrid(int** matriz)
+{
+    GtkWidget *z;
 
+    
 
-
-void floyd(int nodos){
-
-    //Inicializar dos matrices nodos*nodos llenas de infinitos para algoritmo y respuesta
-    int** mFloyd;
-    int** mRespuesta;
-    mFloyd = malloc(nodos*sizeof(int*));
-    mRespuesta = malloc(nodos*sizeof(int*));
-
-    for(int m=0;m<nodos;m++)
-    {
-        mFloyd[m] = malloc(nodos * sizeof(int));
-        mRespuesta[m] = malloc(nodos * sizeof(int));
-
-        for(int n=0;n<nodos;n++)
+    // gtk_entry_get_text(gtk_grid_get_child_at(gridEntrada,0,0));
+    for(int i = 1; i < nodos+1; i++){
+        g_print("%s\n", "");
+        for(int j = 1; j < nodos+1; j++)
         {
-            mFloyd[m][n] = INF;
-            mRespuesta[m][n] = INF;
+            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
+            //g_print("%c",gtk_entry_get_text(GTK_ENTRY(z))[0]);
+            if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
+                matriz[i-1][j-1] = gtk_entry_get_text(GTK_ENTRY(z))[0] - '0';
+            }
+            
+            //g_print("%i", matriz[i-1][j-1]);
+            //matriz[0][0] = 2;
         }
+        
+
     }
 
-    //Rellenar matriz con datos de usuario
-    
-    //Floyd
-    for(int k=0;k<nodos;k++)
-    {
-        for(int i=0;i<nodos;i++)
-        {
-            for(int j=0;j<nodos;j++)
-            {
-                int temp = mFloyd[i][k] + mFloyd[k][j];
-                if(mFloyd[i][j] > temp)
-                {
-                    mFloyd[i][j] = temp;
-                    mRespuesta[i][j] = k;
-                }
-            }
-        }
-    }   
 }
+
+
 
 //Devuelve el nombre del nodo cambiado al original 
 void copiarNombres()
@@ -222,28 +223,7 @@ int buscarRepetidos(){
 }
 
 
-//Salva el nombre de los nodos.
-void button_pressed(){
-    
 
-    if(chequearLetras() & buscarRepetidos())
-    {
-        for(int i = 0; i < nodos; i++)
-        {
-        gtk_entry_set_text(nombresRespuestaJ[i], gtk_entry_get_text(nombresEntradaJ[i]));
-        gtk_entry_set_text(nombresRespuestaI[i], gtk_entry_get_text(nombresEntradaJ[i]));
-        gtk_entry_set_text(nombresEntradaI[i], gtk_entry_get_text(nombresEntradaJ[i]));
-        }
-    }
-    else
-    {
-        copiarNombres();
-    }
-
-    
-    
-
-}
 
 void SignalSalir()
 {
@@ -293,6 +273,85 @@ void OpenDialog_Cancelar()
 void SaveDialog_Cancelar()
 {
     gtk_widget_destroy(GTK_WIDGET(saveDialog));
+}
+
+int** inicializarMatriz(int nodos)
+{
+    int** matriz;
+    matriz = calloc(nodos,sizeof(int*));
+
+    for(int m=0;m<nodos;m++)
+    {
+        matriz[m] = calloc(nodos, sizeof(int));
+
+        for(int n=0;n<nodos;n++)
+        {
+            matriz[m][n] = INF;
+        }
+    }
+    //g_print("%i", matriz[1][0]);
+    return matriz;
+}
+
+void imprimirMatriz(int** matriz)
+{
+    for(int i = 0; i<nodos; i++)
+    {
+        g_print("%s\n", "");
+        for(int j = 0; j<nodos; j++)
+        {
+            g_print("%i ", matriz[i][j]);
+        }
+    }
+}
+
+
+
+
+void floyd(int nodos, int** mFloyd, int** mRespuesta){
+
+    //Rellenar matriz con datos de usuario
+    
+    //Floyd
+    for(int k=0;k<nodos;k++)
+    {
+        for(int i=0;i<nodos;i++)
+        {
+            for(int j=0;j<nodos;j++)
+            {
+                int temp = mFloyd[i][k] + mFloyd[k][j];
+                if(mFloyd[i][j] > temp)
+                {
+                    mFloyd[i][j] = temp;
+                    mRespuesta[i][j] = k;
+                }
+            }
+        }
+    } 
+    imprimirMatriz(mFloyd);  
+}
+
+//Salva el nombre de los nodos.
+void button_pressed(){
+    int** matrizEntrada = inicializarMatriz(nodos);
+    int** matrizRespuesta = inicializarMatriz(nodos);
+    testGrid(matrizEntrada);
+    floyd(nodos,matrizEntrada,matrizRespuesta);
+    if(chequearLetras() & buscarRepetidos())
+    {
+        for(int i = 0; i < nodos; i++)
+        {
+        gtk_entry_set_text(nombresRespuestaJ[i], gtk_entry_get_text(nombresEntradaJ[i]));
+        gtk_entry_set_text(nombresRespuestaI[i], gtk_entry_get_text(nombresEntradaJ[i]));
+        gtk_entry_set_text(nombresEntradaI[i], gtk_entry_get_text(nombresEntradaJ[i]));
+        }
+    }
+    else
+    {
+        copiarNombres();
+    }
+  
+
 }
 
 int main(int argc, char *argv[])
