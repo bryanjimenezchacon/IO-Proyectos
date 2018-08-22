@@ -19,11 +19,12 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino;
+GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino, *rutas_resultado;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
 int** matrizEntrada;
 int** matrizRespuesta;
 int nodos = 2, k = 0;
+char* nombres;
 
 void crearGrids(){
     gridEntrada = gtk_grid_new();
@@ -134,6 +135,7 @@ int on_scroll_value_changed(GtkScale *scale){
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Destino));
     gtk_widget_set_sensitive(buttonRutas, 0);
     nodos = (int)gtk_range_get_value(GTK_RANGE(scale));
+    nombres = calloc(nodos,sizeof(const char));
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
@@ -264,6 +266,7 @@ void abrir(char* archivo)
     char c[10];
     fgets(c, sizeof(c), file);
     nodos = atoi(c);
+    nombres = calloc(nodos,sizeof(const char));
 
     destruirMatriz(mEntrada);
     destruirMatriz(mRespuesta);
@@ -275,6 +278,7 @@ void abrir(char* archivo)
     {
         fgets(c, sizeof(c), file);
         GtkWidget *z, *y;
+        nombres[i-1] = c[0];
         z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),0,i);
         y = gtk_grid_get_child_at(GTK_GRID(gridEntrada),i,0);
         gtk_entry_set_text(GTK_ENTRY(z),c);
@@ -391,7 +395,7 @@ void anhadirInput(int** matriz)
             if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
                 const gchar *g; 
                 g = gtk_entry_get_text(GTK_ENTRY(z));
-                int x = atoi(g);
+                int x = g_ascii_strtoll(g, NULL,10);
                 matriz[i-1][j-1] = x;
             }
             
@@ -445,13 +449,27 @@ void floyd(int nodos)
                 if(matrizEntrada[i][j] > temp)
                 {
                     matrizEntrada[i][j] = temp;
-                    matrizRespuesta[i][j] = k;
+                    matrizRespuesta[i][j] = k+1;
                 }
             }
         }
         
     imprimirMatriz(matrizEntrada);  
     pasarResultado(matrizEntrada);
+}
+
+void infinitos()
+{
+    for(int i = 0; i < nodos; i++)
+    {
+        for(int j = 0; j < nodos; j++)
+        {
+            if(matrizEntrada[i][j] == INF)
+            {
+                matrizRespuesta[i][j] = INF;
+            }
+        }
+    }
 }
 
 //Resuelve Floyd paso por paso
@@ -479,15 +497,15 @@ void siguiente_clicked(){
         floyd(nodos);
         sprintf(value, "Resultado D(%i)", k+1);
         gtk_label_set_text(GTK_LABEL(resultado), value);
+        infinitos();
         gtk_widget_set_sensitive(buttonRutas, 1);
         gtk_widget_set_sensitive (siguiente,0);
     }
     
-    
-    
   
     
 }
+
 
 //Salva el nombre de los nodos.
 
@@ -518,6 +536,7 @@ void buttonRutas_clicked()
         z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),0,j);
         const gchar *pointer;
         pointer = gtk_entry_get_text(GTK_ENTRY(z));
+        nombres[j-1] = pointer[0];
         gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT(comboBoxText_Partida), j-1, pointer);
         gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT(comboBoxText_Destino), j-1, pointer);
     }
@@ -533,12 +552,81 @@ void rutas_cerrar()
     gtk_widget_hide(window_aux);
 }
 
+void encontrarRutaAux(int p, int d, char str[80])
+{
+    char c[2];
+    int temp = 0;
+    temp = matrizRespuesta[p][d];
+    //pointer = g_strconcat(pointer, "->", nombres[d], NULL);
+    
+    if(temp != 0)
+    {
+        int ruta = 0;
+        ruta = matrizRespuesta[p][temp-1];
+        if(ruta != 0)
+        {
+            sprintf(c, "%c", nombres[ruta-1]);
+            strcat(str, "->");
+            strcat(str, c);
+            encontrarRutaAux(ruta-1, d, str);
+        }
+        else
+        {
+            sprintf(c, "%c", nombres[temp-1]);
+            strcat(str, "->");
+            strcat(str, c);
+            encontrarRutaAux(temp-1, d, str);
+        }
+        
+        
+    }
+    else
+    {
+        sprintf(c, "%c", nombres[d]);
+        strcat(str, "->");
+        strcat(str, c);
+        gtk_label_set_text(GTK_LABEL(rutas_resultado), str);
+        g_print("%s",str);
+    }
+}
+
+void encontrarRuta(int p, int d)
+{
+    if(matrizRespuesta[p][d] == INF)
+    {
+        gtk_label_set_text(GTK_LABEL(rutas_resultado), "Resultado: No hay rutas que conecten esos dos nodos");
+    }
+    else
+        if(p == d)
+        {
+         gtk_label_set_text(GTK_LABEL(rutas_resultado), "Resultado: Ni se mueva");
+        }
+         else
+         {
+
+            char str[80];
+            strcpy(str, "Resultado: ");
+            char c[2];
+            sprintf(c, "%c", nombres[p]);
+            strcat(str, c);
+            //g_print("%s", str);
+            encontrarRutaAux(p,d, str);
+         }
+            
+}
+
+
+
 void rutas_calcular()
 {
-    //g_print("%s", gtk_combo_box_get_active_id (GTK_COMBO_BOX(comboBoxText)));
-    g_print("%i", gtk_combo_box_get_active ((GTK_COMBO_BOX(comboBoxText_Partida))));
-    g_print("%i", gtk_combo_box_get_active ((GTK_COMBO_BOX(comboBoxText_Destino))));
+    int i, j;
+    i = gtk_combo_box_get_active(GTK_COMBO_BOX(comboBoxText_Partida));
+    j = gtk_combo_box_get_active (GTK_COMBO_BOX(comboBoxText_Destino));
+    g_print("%d-%d", i, j);
+    encontrarRuta(i,j);
 }
+
+
 
 
 
@@ -564,6 +652,7 @@ int main(int argc, char *argv[])
     scroll = GTK_WIDGET(gtk_builder_get_object(builder, "scroll"));
     comboBoxText_Partida = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Partida"));
     comboBoxText_Destino = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Destino"));
+    rutas_resultado = GTK_WIDGET(gtk_builder_get_object(builder, "rutas_resultado"));
     siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "siguiente"));
     label = GTK_WIDGET(gtk_builder_get_object(builder, "label"));
     mEntrada = GTK_WIDGET(gtk_builder_get_object(builder, "mEntrada"));
