@@ -659,9 +659,8 @@ int main(int argc, char *argv[])
     mRespuesta = GTK_WIDGET(gtk_builder_get_object(builder, "mRespuesta"));
     resultado = GTK_WIDGET(gtk_builder_get_object(builder, "resultado"));
 
-    crearGrids();
-    crearMatriz(gridEntrada, mEntrada, 2, -1, nombresEntradaI, nombresEntradaJ);
-    crearMatriz(gridRespuesta, mRespuesta,2, 0, nombresRespuestaI, nombresRespuestaJ);
+    limpiar();
+    nombres = calloc(nodos,sizeof(const char));
 
 
 
