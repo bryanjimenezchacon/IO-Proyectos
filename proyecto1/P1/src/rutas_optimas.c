@@ -19,7 +19,7 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *window, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino, *rutas_resultado;
+GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *mTablasP, *gridTablasP, *cerrarTablasP, *window, *windowTablas, *buttonTablasP, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino, *rutas_resultado;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
 int** matrizEntrada;
 int** matrizRespuesta;
@@ -29,11 +29,71 @@ char* nombres;
 void crearGrids(){
     gridEntrada = gtk_grid_new();
     gridRespuesta = gtk_grid_new();
+    gridTablasP = gtk_grid_new();
     gtk_grid_set_row_spacing (GTK_GRID(gridEntrada), 10);
     gtk_grid_set_column_spacing (GTK_GRID(gridEntrada), 10);
     gtk_grid_set_row_spacing (GTK_GRID(gridRespuesta), 10);
     gtk_grid_set_column_spacing (GTK_GRID(gridRespuesta), 10);
+    gtk_grid_set_row_spacing (GTK_GRID(gridTablasP), 10);
+    gtk_grid_set_column_spacing (GTK_GRID(gridTablasP), 10);
 
+}
+
+//Crea una matriz de ints en memoria
+int** inicializarMatriz(int nodos, int x)
+{
+    int** matriz;
+    matriz = calloc(nodos,sizeof(int*));
+
+    for(int m=0;m<nodos;m++)
+    {
+        matriz[m] = calloc(nodos, sizeof(int));
+
+        for(int n=0;n<nodos;n++)
+        {
+            matriz[m][n] = x;
+        }
+    }
+    return matriz;
+}
+
+void crearMatrizP()
+{
+    char c[2];
+    for(int i = 1; i < nodos+1; i++)
+    {
+        for(int j = 1; j < nodos + 1; j++)
+        {
+            if(i==1)
+            {
+                GtkWidget *label = gtk_label_new(gtk_entry_get_text(nombresEntradaJ[j-1]));
+                gtk_label_set_width_chars(GTK_LABEL(label), 3);
+                gtk_grid_attach(GTK_GRID(gridTablasP), label, 0, j, 1, 1);
+                gtk_widget_show (label);
+            }
+            if(j==1)
+            {
+                GtkWidget *label = gtk_label_new(gtk_entry_get_text(nombresEntradaJ[i-1]));
+                gtk_label_set_width_chars(GTK_LABEL(label), 3);
+                //gtk_label_set_text(GTK_LABEL(label),gtk_entry_get_text(nombresI[i-1]));
+                //gtk_label_set_text(GTK_LABEL(label),"B");
+                gtk_grid_attach(GTK_GRID(gridTablasP), label, i, 0, 1, 1);
+                gtk_widget_show (label);
+            }
+                        
+            GtkWidget *label = gtk_label_new("");   
+            gtk_label_set_width_chars(GTK_LABEL(label), 3);
+            //char c[2];
+            sprintf(c, "%c", matrizRespuesta[i-1][j-1]+48);
+            //strcat(str, c);
+            gtk_label_set_text(GTK_LABEL(label),c);
+            gtk_grid_attach(GTK_GRID(gridTablasP), label, i, j, 1, 1);
+            gtk_widget_show (label);            
+            
+        }
+    }
+    gtk_container_add (GTK_CONTAINER (mTablasP), gridTablasP);
+    gtk_widget_show (gridTablasP);
 }
 
 
@@ -131,6 +191,7 @@ int on_scroll_value_changed(GtkScale *scale){
 
     destruirMatriz(mEntrada);
     destruirMatriz(mRespuesta);
+    destruirMatriz(mTablasP);
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Partida));
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboBoxText_Destino));
     gtk_widget_set_sensitive(buttonRutas, 0);
@@ -139,6 +200,8 @@ int on_scroll_value_changed(GtkScale *scale){
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    crearMatrizP();
 }
 
 void limpiar(){
@@ -151,6 +214,8 @@ void limpiar(){
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    crearMatrizP();
 }
 
 void terminar() 
@@ -270,9 +335,12 @@ void abrir(char* archivo)
 
     destruirMatriz(mEntrada);
     destruirMatriz(mRespuesta);
+    destruirMatriz(mTablasP);
     crearGrids();
     crearMatriz(gridEntrada, mEntrada, nodos, 1, nombresEntradaI, nombresEntradaJ);
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    crearMatrizP();
 
     for(int i = 1; i < nodos+1; i++)
     {
@@ -354,23 +422,7 @@ void SaveDialog_Cancelar()
     gtk_widget_destroy(GTK_WIDGET(saveDialog));
 }
 
-//Crea una matriz de ints en memoria
-int** inicializarMatriz(int nodos, int x)
-{
-    int** matriz;
-    matriz = calloc(nodos,sizeof(int*));
 
-    for(int m=0;m<nodos;m++)
-    {
-        matriz[m] = calloc(nodos, sizeof(int));
-
-        for(int n=0;n<nodos;n++)
-        {
-            matriz[m][n] = x;
-        }
-    }
-    return matriz;
-}
 
 void imprimirMatriz(int** matriz)
 {
@@ -409,15 +461,18 @@ void anhadirInput(int** matriz)
 //Muestra el resultado en la matriz de resultado
 void pasarResultado(int** matriz)
 {
-    GtkWidget *z;
-    char c[20];
-    
+    GtkWidget *z, *y;
+    char c[20], s[2];
+    //destruirMatriz(mTablasP);
+    //crearMatrizP();
     for(int i = 1; i<nodos+1; i++)
     {
         for(int j = 1; j<nodos+1; j++)
         {
             z = gtk_grid_get_child_at(GTK_GRID(gridRespuesta),j,i);
             sprintf(c, "%d", matriz[i-1][j-1]);
+            y = gtk_grid_get_child_at(GTK_GRID(gridTablasP),j,i);
+            sprintf(s, "%c", matrizRespuesta[i-1][j-1]+48);
             
             if(matriz[i-1][j-1] == INF){
                 gtk_entry_set_text(GTK_ENTRY(z),"*");
@@ -425,6 +480,14 @@ void pasarResultado(int** matriz)
             else
             {
                 gtk_entry_set_text(GTK_ENTRY(z),c);
+                if(matrizRespuesta[i-1][j-1]+48 == ':'){
+                    gtk_label_set_text(GTK_LABEL(y),"10");
+                }
+                else
+                {
+                    gtk_label_set_text(GTK_LABEL(y),s);
+                }
+                
             }
             
         }
@@ -626,6 +689,17 @@ void rutas_calcular()
     encontrarRuta(i,j);
 }
 
+void buttonTablasP_clicked()
+{
+
+    gtk_widget_show(windowTablas);
+}
+
+void cerrarTablasP_clicked()
+{
+    gtk_widget_hide(windowTablas);
+}
+
 
 
 
@@ -648,6 +722,7 @@ int main(int argc, char *argv[])
     gtk_widget_set_sensitive(buttonRutas, 0);
     window_aux = GTK_WIDGET(gtk_builder_get_object(builder, "window_aux"));
     gtk_builder_connect_signals(builder, NULL);
+    windowTablas = GTK_WIDGET(gtk_builder_get_object(builder, "windowTablas"));
 
     scroll = GTK_WIDGET(gtk_builder_get_object(builder, "scroll"));
     comboBoxText_Partida = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Partida"));
@@ -657,8 +732,10 @@ int main(int argc, char *argv[])
     label = GTK_WIDGET(gtk_builder_get_object(builder, "label"));
     mEntrada = GTK_WIDGET(gtk_builder_get_object(builder, "mEntrada"));
     mRespuesta = GTK_WIDGET(gtk_builder_get_object(builder, "mRespuesta"));
+    mTablasP = GTK_WIDGET(gtk_builder_get_object(builder, "mTablasP"));
     resultado = GTK_WIDGET(gtk_builder_get_object(builder, "resultado"));
 
+    
     limpiar();
     nombres = calloc(nodos,sizeof(const char));
 
