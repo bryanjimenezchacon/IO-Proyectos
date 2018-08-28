@@ -4,7 +4,7 @@
 # Investigación de Operaciones Gr 40
 #
 #
-# Proyecto 0.Menú para Programas de Programación Dinámica
+# Proyecto 1.Menú para Programas de Programación Dinámica
 #
 # Profesor: Dr.Francisco J.Torres Rojas
 #
@@ -19,7 +19,17 @@
 #include<stdio.h>
 #define INF 32767
 
-GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *mTablasP, *gridTablasP, *cerrarTablasP, *window, *windowTablas, *buttonTablasP, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino, *rutas_resultado;
+/* Determines if to continue the timer or not */
+static gboolean continue_timer = FALSE;
+
+/* Determines if the timer has started */
+static gboolean start_timer = FALSE;
+
+/* Display seconds expired */
+static int sec_expired = 0;
+
+GtkWidget *image;
+GtkWidget *scroll , *label, *siguiente, *mEntrada, *mRespuesta, *gridEntrada, *gridRespuesta, *mTablasP, *gridTablasP, *cerrarTablasP, *window, *windowTablas, *windowGrafo, *buttonTablasP, *openDialog, *saveDialog, *resultado, *window_aux, *buttonRutas, *comboBoxText_Partida, *comboBoxText_Destino, *rutas_resultado;
 GtkEntry *nombresEntradaI[10], *nombresEntradaJ[10], *nombresRespuestaI[10], *nombresRespuestaJ[10];
 int** matrizEntrada;
 int** matrizRespuesta;
@@ -105,8 +115,10 @@ void digraph(int boolean, char ruta[160])
         }
     }
     if(boolean){
-        strtok(ruta, "^G");
-        fprintf(fRuta, "%s", ruta);
+    	g_print(ruta);
+        strtok(ruta, "");
+        g_print(ruta);
+        fprintf(file , "%s", ruta);
         fclose(fRuta);
     }
     fprintf(file, "%s", "}");    
@@ -612,6 +624,7 @@ void siguiente_clicked(){
         floyd(nodos);
         k = k+1;
         sprintf(value, "Resultado D(%i)", k );
+        digraph(0,NULL);
         gtk_label_set_text(GTK_LABEL(resultado), value);        
         
     }
@@ -711,12 +724,14 @@ void encontrarRutaAux(int p, int d, char str[80], char gph[160])
     }
     else
     {
+
         sprintf(c, "%c", nombres[d]);
         strcat(str, "->");
         strcat(str, c);
         strcat(gph, " -> ");
         strcat(gph, c);
-        strcat(gph, "[color=red, penwidth=3.0];\n}");
+        strcat(gph, "[color=red, penwidth=3.0];\n");
+        //g_print(gph);
         digraph(1, gph);
         gtk_label_set_text(GTK_LABEL(rutas_resultado), str);
         g_print("%s",str);
@@ -738,7 +753,10 @@ void encontrarRuta(int p, int d)
          {
 
             char str[80];
-            char gph[160];            
+            char gph[160];
+            memset(&gph[0], 0, sizeof(gph));  
+         //   g_print("aca\n");
+    	//	g_print(gph);          
             strcpy(str, "Resultado: ");
             //strcpy(gph, "digraph G {\n");
             char c[2];
@@ -747,6 +765,7 @@ void encontrarRuta(int p, int d)
             strcat(gph, "\t");
             strcat(gph, c);
             //g_print("%s", str);
+
             encontrarRutaAux(p,d, str, gph);
          }
             
@@ -776,7 +795,69 @@ void cerrarTablasP_clicked()
 
 
 
+static gboolean
+_label_update(gpointer data)
+{
 
+
+    system("dot -Tpng grafo.dot -o grafo.png");
+    gtk_image_set_from_file (image, "grafo.png");
+    return continue_timer;
+
+}
+
+static void
+_start_timer (GtkWidget *button, gpointer data)
+{
+    (void)button;/*Avoid compiler warnings*/
+    GtkWidget *label = data;
+    if(!start_timer)
+    {
+        g_timeout_add_seconds(1, _label_update, label);
+        start_timer = TRUE;
+        continue_timer = TRUE;
+    }
+}
+
+
+static void
+_pause_resume_timer ()
+{
+    
+    if(start_timer)
+    {
+        
+        continue_timer = !continue_timer;
+        if(continue_timer)
+        {
+            g_timeout_add_seconds(1, _label_update, label);
+        }
+        else
+        {
+            /*Decrementing because timer will be hit one more time before expiring*/
+            sec_expired--;
+        }
+    }
+}
+
+void btnCerrarGrafo_clicked_cb()
+{
+    _pause_resume_timer();
+    gtk_widget_hide(windowGrafo);
+}
+
+void rutas_key_release_event_cb()
+{
+	g_print("hola");
+	matrizEntrada = inicializarMatriz(nodos, INF);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    anhadirInput(matrizEntrada);
+	digraph(0,NULL);
+
+	//matrizEntrada = inicializarMatriz(nodos, INF);
+	//anhadirInput(matrizEntrada);
+
+}
 
 
 int main(int argc, char *argv[])
@@ -797,6 +878,11 @@ int main(int argc, char *argv[])
     window_aux = GTK_WIDGET(gtk_builder_get_object(builder, "window_aux"));
     gtk_builder_connect_signals(builder, NULL);
     windowTablas = GTK_WIDGET(gtk_builder_get_object(builder, "windowTablas"));
+
+    //Crea la ventana para el grafo
+    windowGrafo = GTK_WIDGET(gtk_builder_get_object(builder, "windowGrafo"));
+    gtk_widget_show(windowGrafo);
+	image = GTK_WIDGET(gtk_builder_get_object(builder, "image"));
 
     scroll = GTK_WIDGET(gtk_builder_get_object(builder, "scroll"));
     comboBoxText_Partida = GTK_WIDGET(gtk_builder_get_object(builder, "comboBoxText_Partida"));
@@ -819,6 +905,11 @@ int main(int argc, char *argv[])
 
     g_object_unref(builder);    
     gtk_widget_show(window); 
+
+    g_timeout_add(250, _label_update, image);
+    continue_timer = TRUE;
+    start_timer = TRUE;
+
 
     gtk_main();
 

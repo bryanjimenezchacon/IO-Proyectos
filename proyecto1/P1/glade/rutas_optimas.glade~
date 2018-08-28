@@ -9,8 +9,10 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkWindow" id="windowTablas">
+  <object class="GtkWindow" id="windowGrafo">
     <property name="can_focus">False</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
     <property name="resizable">False</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
@@ -20,159 +22,67 @@
     </child>
     <child>
       <object class="GtkFixed">
-        <property name="width_request">800</property>
-        <property name="height_request">600</property>
+        <property name="width_request">32</property>
+        <property name="height_request">32</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
         <child>
-          <object class="GtkLabel">
-            <property name="width_request">400</property>
-            <property name="height_request">40</property>
+          <object class="GtkBox">
             <property name="visible">True</property>
+            <property name="app_paintable">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Tablas P</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="label" translatable="yes">Grafo</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnCerrarGrafo">
+                <property name="label" translatable="yes">Cerrar</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <signal name="clicked" handler="btnCerrarGrafo_clicked_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
-          <packing>
-            <property name="x">200</property>
-            <property name="y">40</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkFixed">
-            <property name="width_request">400</property>
-            <property name="height_request">400</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="x">200</property>
-            <property name="y">100</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="cerrarTablasP">
-            <property name="label" translatable="yes">Cerrar</property>
-            <property name="width_request">100</property>
-            <property name="height_request">60</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="cerrarTablasP_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="x">345</property>
-            <property name="y">510</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="window_aux">
-    <property name="can_focus">False</property>
-    <property name="resizable">False</property>
-    <property name="default_width">690</property>
-    <property name="default_height">360</property>
-    <property name="deletable">False</property>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkFixed">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="GtkLabel" id="label_partida">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Nodo de partida</property>
-          </object>
-          <packing>
-            <property name="x">120</property>
-            <property name="y">30</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_destino">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Nodo destino
-</property>
-          </object>
-          <packing>
-            <property name="x">400</property>
-            <property name="y">30</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="rutas_resultado">
-            <property name="width_request">500</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Resultado:</property>
-          </object>
-          <packing>
-            <property name="x">50</property>
-            <property name="y">200</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="rutas_calcular">
-            <property name="label" translatable="yes">Calcular</property>
-            <property name="width_request">100</property>
-            <property name="height_request">30</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="rutas_calcular" swapped="no"/>
-          </object>
-          <packing>
-            <property name="x">400</property>
-            <property name="y">300</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="rutas_cerrar">
-            <property name="label" translatable="yes">Cerrar</property>
-            <property name="width_request">100</property>
-            <property name="height_request">30</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="rutas_cerrar" swapped="no"/>
-          </object>
-          <packing>
-            <property name="x">515</property>
-            <property name="y">300</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="comboBoxText_Destino">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="x">400</property>
-            <property name="y">100</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="comboBoxText_Partida">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="x">120</property>
-            <property name="y">100</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -184,6 +94,7 @@
     <property name="default_height">720</property>
     <property name="destroy_with_parent">True</property>
     <signal name="destroy" handler="terminar" swapped="no"/>
+    <signal name="key-release-event" handler="rutas_key_release_event_cb" swapped="no"/>
     <child>
       <placeholder/>
     </child>
@@ -336,7 +247,6 @@
                             <property name="label">Salvar</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="image">__glade_unnamed_10</property>
                             <property name="use_stock">False</property>
                             <signal name="activate" handler="SignalSalvar" swapped="no"/>
                           </object>
@@ -346,7 +256,6 @@
                             <property name="label">Salir</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="image">__glade_unnamed_12</property>
                             <property name="use_stock">False</property>
                             <signal name="activate" handler="SignalSalir" swapped="no"/>
                           </object>
@@ -406,6 +315,174 @@
           <packing>
             <property name="resize">True</property>
             <property name="shrink">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="windowTablas">
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
+    <property name="deletable">False</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed">
+        <property name="width_request">800</property>
+        <property name="height_request">600</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="width_request">400</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Tablas P</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">40</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="mTablasP">
+            <property name="width_request">400</property>
+            <property name="height_request">400</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">100</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="cerrarTablasP">
+            <property name="label" translatable="yes">Cerrar</property>
+            <property name="width_request">100</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="cerrarTablasP_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">345</property>
+            <property name="y">510</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="window_aux">
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="default_width">690</property>
+    <property name="default_height">360</property>
+    <property name="deletable">False</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel" id="label_partida">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Nodo de partida</property>
+          </object>
+          <packing>
+            <property name="x">120</property>
+            <property name="y">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_destino">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Nodo destino
+</property>
+          </object>
+          <packing>
+            <property name="x">400</property>
+            <property name="y">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="rutas_resultado">
+            <property name="width_request">500</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Resultado:</property>
+          </object>
+          <packing>
+            <property name="x">50</property>
+            <property name="y">200</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="rutas_calcular">
+            <property name="label" translatable="yes">Calcular</property>
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="rutas_calcular" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">400</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="rutas_cerrar">
+            <property name="label" translatable="yes">Cerrar</property>
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="rutas_cerrar" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">515</property>
+            <property name="y">300</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="comboBoxText_Destino">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="x">400</property>
+            <property name="y">100</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="comboBoxText_Partida">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="x">120</property>
+            <property name="y">100</property>
           </packing>
         </child>
       </object>
