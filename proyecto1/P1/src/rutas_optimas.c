@@ -57,11 +57,16 @@ int** inicializarMatriz(int nodos, int x)
     return matriz;
 }
 
-void digraph()
+void digraph(int boolean, char ruta[160])
 {
-    FILE *file;
+    FILE *file, *fRuta;
     file = fopen("grafo.dot", "w");
-    fprintf(file, "%s\n", "digraph {");
+    fRuta = fopen("ruta.dot", "w");
+    fprintf(file, "%s\n", "digraph G {");
+    if(boolean)
+    {
+        fprintf(fRuta, "%s\n", "digraph G {");
+    }
 
     //a -> b[label="0.2"];
     const gchar *nodoPartida, *nodoDestino;
@@ -76,10 +81,19 @@ void digraph()
                 nodoPartida = gtk_entry_get_text(GTK_ENTRY(nombresEntradaJ[i]));
                 nodoDestino = gtk_entry_get_text(GTK_ENTRY(nombresEntradaJ[j]));
                 fprintf(file, "\t%s %s %s%s%d%s\n", nodoPartida, "->", nodoDestino, "[label=\"",matrizEntrada[i][j], "\"];");
+                if(boolean){
+                    fprintf(fRuta, "\t%s %s %s%s%d%s\n", nodoPartida, "->", nodoDestino, "[label=\"",matrizEntrada[i][j], "\"];");
+                }
+                
             }               
         }
     }
-    fprintf(file, "%s", "}");
+    if(boolean){
+        strtok(ruta, "^G");
+        fprintf(fRuta, "%s", ruta);
+        fclose(fRuta);
+    }
+    fprintf(file, "%s", "}");    
     fclose(file);
 
     
@@ -590,7 +604,7 @@ void siguiente_clicked(){
         gtk_widget_set_sensitive(buttonRutas, 1);
         gtk_widget_set_sensitive (siguiente,0);
     }
-    digraph();
+    digraph(0, NULL);
     
   
     
@@ -642,7 +656,7 @@ void rutas_cerrar()
     gtk_widget_hide(window_aux);
 }
 
-void encontrarRutaAux(int p, int d, char str[80])
+void encontrarRutaAux(int p, int d, char str[80], char gph[160])
 {
     char c[2];
     int temp = 0;
@@ -658,14 +672,18 @@ void encontrarRutaAux(int p, int d, char str[80])
             sprintf(c, "%c", nombres[ruta-1]);
             strcat(str, "->");
             strcat(str, c);
-            encontrarRutaAux(ruta-1, d, str);
+            strcat(gph, " -> ");
+            strcat(gph, c);
+            encontrarRutaAux(ruta-1, d, str, gph);
         }
         else
         {
             sprintf(c, "%c", nombres[temp-1]);
             strcat(str, "->");
             strcat(str, c);
-            encontrarRutaAux(temp-1, d, str);
+            strcat(gph, " -> ");
+            strcat(gph, c);
+            encontrarRutaAux(temp-1, d, str, gph);
         }
         
         
@@ -675,6 +693,10 @@ void encontrarRutaAux(int p, int d, char str[80])
         sprintf(c, "%c", nombres[d]);
         strcat(str, "->");
         strcat(str, c);
+        strcat(gph, " -> ");
+        strcat(gph, c);
+        strcat(gph, "[color=red, penwidth=3.0];\n}");
+        digraph(1, gph);
         gtk_label_set_text(GTK_LABEL(rutas_resultado), str);
         g_print("%s",str);
     }
@@ -695,12 +717,16 @@ void encontrarRuta(int p, int d)
          {
 
             char str[80];
+            char gph[160];            
             strcpy(str, "Resultado: ");
+            //strcpy(gph, "digraph G {\n");
             char c[2];
             sprintf(c, "%c", nombres[p]);
             strcat(str, c);
+            strcat(gph, "\t");
+            strcat(gph, c);
             //g_print("%s", str);
-            encontrarRutaAux(p,d, str);
+            encontrarRutaAux(p,d, str, gph);
          }
             
 }

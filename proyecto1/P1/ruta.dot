@@ -89,4 +89,5 @@ digraph G {
 	J -> G[label="9"];
 	J -> H[label="15"];
 	J -> I[label="19"];
+	E -> C -> A[color=red, penwidth=3.0];
 }
