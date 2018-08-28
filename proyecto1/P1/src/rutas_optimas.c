@@ -57,6 +57,22 @@ int** inicializarMatriz(int nodos, int x)
     return matriz;
 }
 
+void digraphVacia()
+{
+    FILE *file, *fRuta;
+    file = fopen("grafo.dot", "w");
+    fprintf(file, "%s\n", "digraph G {");
+    const gchar *nodoPartida;
+    for(int i = 0; i < nodos; i++)
+    {
+        nodoPartida = gtk_entry_get_text(GTK_ENTRY(nombresEntradaJ[i]));
+        fprintf(file, "%s\n", nodoPartida);
+    }
+
+    fprintf(file, "%s", "}");    
+    fclose(file);
+}
+
 void digraph(int boolean, char ruta[160])
 {
     FILE *file, *fRuta;
@@ -241,6 +257,7 @@ int on_scroll_value_changed(GtkScale *scale){
     crearMatriz(gridRespuesta, mRespuesta,nodos, 0, nombresRespuestaI, nombresRespuestaJ);
     matrizRespuesta = inicializarMatriz(nodos, 0);
     crearMatrizP();
+    digraphVacia();
 }
 
 void limpiar(){
@@ -363,6 +380,28 @@ void guardar(char* archivo)
     fclose(file);
 }
 
+//Pasa los datos ingresados por el usuario a la matriz en memoria
+void anhadirInput(int** matriz)
+{
+    GtkWidget *z;
+    for(int i = 1; i < nodos+1; i++){
+        for(int j = 1; j < nodos+1; j++)
+        {
+            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
+            if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
+                const gchar *g; 
+                g = gtk_entry_get_text(GTK_ENTRY(z));
+                int x = g_ascii_strtoll(g, NULL,10);
+                matriz[i-1][j-1] = x;
+            }
+            
+        }
+        
+
+    }
+
+}
+
 void abrir(char* archivo)
 {    
     limpiar();
@@ -417,8 +456,10 @@ void abrir(char* archivo)
             
         }
     }
-
-
+    matrizEntrada = inicializarMatriz(nodos, INF);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    anhadirInput(matrizEntrada);
+    digraph(0,NULL);
     fclose(file);
 }
 
@@ -476,27 +517,6 @@ void imprimirMatriz(int** matriz)
     }
 }
 
-//Pasa los datos ingresados por el usuario a la matriz en memoria
-void anhadirInput(int** matriz)
-{
-    GtkWidget *z;
-    for(int i = 1; i < nodos+1; i++){
-        for(int j = 1; j < nodos+1; j++)
-        {
-            z = gtk_grid_get_child_at(GTK_GRID(gridEntrada),j,i);
-            if(gtk_entry_get_text(GTK_ENTRY(z))[0] != '*'){
-                const gchar *g; 
-                g = gtk_entry_get_text(GTK_ENTRY(z));
-                int x = g_ascii_strtoll(g, NULL,10);
-                matriz[i-1][j-1] = x;
-            }
-            
-        }
-        
-
-    }
-
-}
 
 //Muestra el resultado en la matriz de resultado
 void pasarResultado(int** matriz)
@@ -603,8 +623,9 @@ void siguiente_clicked(){
         infinitos();
         gtk_widget_set_sensitive(buttonRutas, 1);
         gtk_widget_set_sensitive (siguiente,0);
+        digraph(0, NULL);
     }
-    digraph(0, NULL);
+    
     
   
     
