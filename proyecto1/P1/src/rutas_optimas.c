@@ -57,6 +57,35 @@ int** inicializarMatriz(int nodos, int x)
     return matriz;
 }
 
+void digraph()
+{
+    FILE *file;
+    file = fopen("grafo.dot", "w");
+    fprintf(file, "%s\n", "digraph {");
+
+    //a -> b[label="0.2"];
+    const gchar *nodoPartida, *nodoDestino;
+    //pointer = gtk_entry_get_text(GTK_ENTRY(z));
+
+    for(int i = 0; i < nodos; i++)
+    {
+        for(int j = 0; j < nodos; j++)
+        {
+            if(matrizEntrada[i][j] != 0 && matrizEntrada[i][j] != INF)
+            {
+                nodoPartida = gtk_entry_get_text(GTK_ENTRY(nombresEntradaJ[i]));
+                nodoDestino = gtk_entry_get_text(GTK_ENTRY(nombresEntradaJ[j]));
+                fprintf(file, "\t%s %s %s%s%d%s\n", nodoPartida, "->", nodoDestino, "[label=\"",matrizEntrada[i][j], "\"];");
+            }               
+        }
+    }
+    fprintf(file, "%s", "}");
+    fclose(file);
+
+    
+
+}
+
 void crearMatrizP()
 {
     char c[2];
@@ -75,17 +104,13 @@ void crearMatrizP()
             {
                 GtkWidget *label = gtk_label_new(gtk_entry_get_text(nombresEntradaJ[i-1]));
                 gtk_label_set_width_chars(GTK_LABEL(label), 3);
-                //gtk_label_set_text(GTK_LABEL(label),gtk_entry_get_text(nombresI[i-1]));
-                //gtk_label_set_text(GTK_LABEL(label),"B");
                 gtk_grid_attach(GTK_GRID(gridTablasP), label, i, 0, 1, 1);
                 gtk_widget_show (label);
             }
                         
             GtkWidget *label = gtk_label_new("");   
             gtk_label_set_width_chars(GTK_LABEL(label), 3);
-            //char c[2];
             sprintf(c, "%c", matrizRespuesta[i-1][j-1]+48);
-            //strcat(str, c);
             gtk_label_set_text(GTK_LABEL(label),c);
             gtk_grid_attach(GTK_GRID(gridTablasP), label, i, j, 1, 1);
             gtk_widget_show (label);            
@@ -280,6 +305,7 @@ void SignalSalir()
 {
     gtk_widget_destroy(GTK_WIDGET(window));
 }
+
 
 void guardar(char* archivo)
 {
@@ -564,6 +590,7 @@ void siguiente_clicked(){
         gtk_widget_set_sensitive(buttonRutas, 1);
         gtk_widget_set_sensitive (siguiente,0);
     }
+    digraph();
     
   
     

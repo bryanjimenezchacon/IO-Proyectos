@@ -1,0 +1,13 @@
+digraph {
+	A -> B[label="-1"];
+	A -> C[label="-2"];
+	B -> A[label="4"];
+	B -> C[label="2"];
+	B -> D[label="4"];
+	C -> A[label="5"];
+	C -> B[label="1"];
+	C -> D[label="2"];
+	D -> A[label="3"];
+	D -> B[label="-1"];
+	D -> C[label="1"];
+}
