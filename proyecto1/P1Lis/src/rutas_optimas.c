@@ -4,7 +4,7 @@
 # Investigación de Operaciones Gr 40
 #
 #
-# Proyecto 0.Menú para Programas de Programación Dinámica
+# Proyecto 1.Menú para Programas de Programación Dinámica
 #
 # Profesor: Dr.Francisco J.Torres Rojas
 #
@@ -793,23 +793,7 @@ void cerrarTablasP_clicked()
     gtk_widget_hide(windowTablas);
 }
 
-void btnCerrarGrafo_clicked_cb()
-{
-    gtk_widget_hide(windowGrafo);
-}
 
-void rutas_key_release_event_cb()
-{
-	g_print("hola");
-	matrizEntrada = inicializarMatriz(nodos, INF);
-    matrizRespuesta = inicializarMatriz(nodos, 0);
-    anhadirInput(matrizEntrada);
-	digraph(0,NULL);
-
-	//matrizEntrada = inicializarMatriz(nodos, INF);
-	//anhadirInput(matrizEntrada);
-
-}
 
 static gboolean
 _label_update(gpointer data)
@@ -833,6 +817,46 @@ _start_timer (GtkWidget *button, gpointer data)
         start_timer = TRUE;
         continue_timer = TRUE;
     }
+}
+
+
+static void
+_pause_resume_timer ()
+{
+    
+    if(start_timer)
+    {
+        
+        continue_timer = !continue_timer;
+        if(continue_timer)
+        {
+            g_timeout_add_seconds(1, _label_update, label);
+        }
+        else
+        {
+            /*Decrementing because timer will be hit one more time before expiring*/
+            sec_expired--;
+        }
+    }
+}
+
+void btnCerrarGrafo_clicked_cb()
+{
+    _pause_resume_timer();
+    gtk_widget_hide(windowGrafo);
+}
+
+void rutas_key_release_event_cb()
+{
+	g_print("hola");
+	matrizEntrada = inicializarMatriz(nodos, INF);
+    matrizRespuesta = inicializarMatriz(nodos, 0);
+    anhadirInput(matrizEntrada);
+	digraph(0,NULL);
+
+	//matrizEntrada = inicializarMatriz(nodos, INF);
+	//anhadirInput(matrizEntrada);
+
 }
 
 
