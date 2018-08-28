@@ -812,13 +812,16 @@ int main(int argc, char *argv[])
     
     limpiar();
     nombres = calloc(nodos,sizeof(const char));
+    digraphVacia();
 
 
 
 
     g_object_unref(builder);    
-    gtk_widget_show(window);                
+    gtk_widget_show(window); 
+
     gtk_main();
+
 
     
  
