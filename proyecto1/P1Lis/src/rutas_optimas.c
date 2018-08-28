@@ -115,8 +115,10 @@ void digraph(int boolean, char ruta[160])
         }
     }
     if(boolean){
-        strtok(ruta, "^G");
-        fprintf(fRuta, "%s", ruta);
+    	g_print(ruta);
+        strtok(ruta, "");
+        g_print(ruta);
+        fprintf(file , "%s", ruta);
         fclose(fRuta);
     }
     fprintf(file, "%s", "}");    
@@ -622,6 +624,7 @@ void siguiente_clicked(){
         floyd(nodos);
         k = k+1;
         sprintf(value, "Resultado D(%i)", k );
+        digraph(0,NULL);
         gtk_label_set_text(GTK_LABEL(resultado), value);        
         
     }
@@ -721,12 +724,14 @@ void encontrarRutaAux(int p, int d, char str[80], char gph[160])
     }
     else
     {
+
         sprintf(c, "%c", nombres[d]);
         strcat(str, "->");
         strcat(str, c);
         strcat(gph, " -> ");
         strcat(gph, c);
-        strcat(gph, "[color=red, penwidth=3.0];\n}");
+        strcat(gph, "[color=red, penwidth=3.0];\n");
+        //g_print(gph);
         digraph(1, gph);
         gtk_label_set_text(GTK_LABEL(rutas_resultado), str);
         g_print("%s",str);
@@ -748,7 +753,10 @@ void encontrarRuta(int p, int d)
          {
 
             char str[80];
-            char gph[160];            
+            char gph[160];
+            memset(&gph[0], 0, sizeof(gph));  
+         //   g_print("aca\n");
+    	//	g_print(gph);          
             strcpy(str, "Resultado: ");
             //strcpy(gph, "digraph G {\n");
             char c[2];
@@ -757,6 +765,7 @@ void encontrarRuta(int p, int d)
             strcat(gph, "\t");
             strcat(gph, c);
             //g_print("%s", str);
+
             encontrarRutaAux(p,d, str, gph);
          }
             
@@ -873,7 +882,7 @@ int main(int argc, char *argv[])
     g_object_unref(builder);    
     gtk_widget_show(window); 
 
-    g_timeout_add_seconds(1, _label_update, image);
+    g_timeout_add(250, _label_update, image);
     continue_timer = TRUE;
     start_timer = TRUE;
 
