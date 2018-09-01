@@ -67,14 +67,13 @@ int main(int argc, char *argv[])
     btn_Salir = GTK_WIDGET(gtk_builder_get_object(builder, "btnSalir"));
     btn_AcercaDe = GTK_WIDGET(gtk_builder_get_object(builder, "btnAcerca"));
 
-	gtk_widget_set_tooltip_text(P1, "Inicia el programa del algoritmo Floyd-Warshall, el cual encuentra la ruta más corta para llegar de un punto a otro en grafos dirigidos ponderados.");
+	gtk_widget_set_tooltip_text(P1, "Inicia el programa del algoritmo Floyd-Warshall. El problema que intenta resolver este algoritmo es el de encontrar el camino más corto entre todos los pares de nodos o vértices de un grafo. Esto es semejante a construir una tabla con todas las distancias mínimas entre pares de ciudades de un mapa, indicando además la ruta a seguir para ir de la primera ciudad a la segunda. Este es uno de los problemas más interesantes que se pueden resolver con algoritmos de grafos.");
     gtk_widget_set_tooltip_text(P2, "Inicia el programa del algoritmo Knapsack problem, el cual busca encontrar la mejor solución con un conjunto de posibilidades a las cuales tienen un valor y un costo(peso), existe una 'mochila' con capacidad conocida para transportar los objetos, por lo que se debe maximizar la ganancia sin exceder el límite.");
     gtk_widget_set_tooltip_text(P3, "TBA");
     gtk_widget_set_tooltip_text(P4, "TBA");
     gtk_widget_set_tooltip_text(P5, "TBA");
     gtk_widget_set_tooltip_text(P6, "Termina el programa");
- 	
- 	gtk_widget_set_tooltip_text(btn_Salir, "Termina el programa");
+    gtk_widget_set_tooltip_text(btn_Salir, "Termina el programa");
     gtk_widget_set_tooltip_text(btn_AcercaDe, "Muestra información del programa y los miembros del equipo");
    
 
@@ -85,12 +84,13 @@ int main(int argc, char *argv[])
     gtk_widget_show(window);                
     gtk_main();
  
+    exit(3);
     return 0;
 }
 
 void on_btnP1Comenzar_clicked()
 {
-    system("./Pending &");
+    system("./Rutas_Optimas &");
 }
 
 void on_btnP2Comenzar_clicked()

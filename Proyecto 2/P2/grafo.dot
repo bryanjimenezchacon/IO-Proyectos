@@ -1,9 +1,4 @@
 digraph G {
-	J -> B[label="9"];
-	J -> M[label="8"];
-	B -> J[label="3"];
-	B -> M[label="11"];
-	M -> J[label="4"];
-	M -> B[label="1"];
-	M -> B[color=red, penwidth=3.0];
+A
+B
 }

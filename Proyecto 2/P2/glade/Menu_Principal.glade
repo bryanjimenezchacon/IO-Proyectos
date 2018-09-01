@@ -9,6 +9,7 @@
     <property name="title" translatable="yes">Proyecto de Investigación de Operaciones</property>
     <property name="resizable">False</property>
     <property name="icon">icon.png</property>
+    <signal name="destroy" handler="terminar" swapped="no"/>
     <child>
       <placeholder/>
     </child>
