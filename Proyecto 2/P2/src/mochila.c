@@ -265,7 +265,7 @@ void CrearTabla(){
                              "</span>",
                              val);
                 gtk_label_set_markup(GTK_LABEL (label), str);
-                gtk_widget_set_size_request(label, 470/(cantidadObjetos + 2), 470/(cantidadObjetos + 2));
+                gtk_widget_set_size_request(label, 580/(cantidadObjetos + 1), 580/(cantidadObjetos + 1));
                 box = gtk_box_new(0, 0);
                 gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                 const GdkRGBA *color;
@@ -288,7 +288,7 @@ void CrearTabla(){
                              "</span>",
                              val);
                 gtk_label_set_markup(GTK_LABEL (label), str);
-                    gtk_widget_set_size_request(label, 470/(cantidadObjetos + 2), 470/(cantidadObjetos + 2));
+                    gtk_widget_set_size_request(label, 580/(cantidadObjetos + 1), 580/(cantidadObjetos + 1));
 
                     box = gtk_box_new(0, 0);
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -312,7 +312,7 @@ void CrearTabla(){
                              "</span>",
                              v);
                 gtk_label_set_markup(GTK_LABEL (label), str);
-                    gtk_widget_set_size_request(label, 470/(cantidadObjetos + 2), 470/(cantidadObjetos+ 2));
+                    gtk_widget_set_size_request(label, 580/(cantidadObjetos + 1), 580/(cantidadObjetos+ 1));
 
                     box = gtk_box_new(0, 0);
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
