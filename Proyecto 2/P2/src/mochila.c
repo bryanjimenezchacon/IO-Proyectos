@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     gtk_widget_set_tooltip_text(guardar, "Guarda los datos en un archivo");
     gtk_widget_set_tooltip_text(SalirDelPrograma, "Cierra el programa");
 
-    gdk_color_parse ("#ACACAC", &color1);
+    gdk_color_parse ("#d6d6d6", &color1);
 
     gtk_widget_modify_bg ( GTK_WIDGET(window_SD), GTK_STATE_NORMAL, &color1);
 
@@ -139,12 +139,6 @@ int on_calcular_clicked(){
     deleteTablesGrid(tabla_solucion);
     gtk_label_set_text(GTK_LABEL(resultadoFinal), "");
     gtk_label_set_text(GTK_LABEL(result), "");
-	/*
-    tabla = createFloatMatrix(cantidadObjetos, 3);
-    tablaCantidades = createFloatMatrix(capacidadMochila+1, cantidadObjetos);
-    tablaColumnaAnterior = createFloatMatrix(capacidadMochila+1, 1);
-    cantidadCombinaciones = createFloatMatrix(cantidadObjetos, 1);
-    tablaResultado = createFloatMatrix(capacidadMochila+1, cantidadObjetos);*/
 
     if(cantidadObjetos==0){
         gtk_label_set_text(GTK_LABEL(result), "Debe de llenar la información primero.");
@@ -392,15 +386,6 @@ void writeFile(char* filename)
     fclose(file);
 }
 
-/*int on_btn_cargar_SD_clicked(){
-    const gchar *filename;
-    //filename = gtk_file_chooser_get_filename (entry_cargar_SD);
-    if(filename==NULL){
-        gtk_label_set_text(GTK_LABEL(result), "Selecione un archivo.");
-        return 0;
-    }
-    readFile(filename);
-}*/
 
 void strip(char *s) {
     char *p2 = s;
@@ -534,7 +519,6 @@ void readFile(char* filename)
                 gtk_entry_set_width_chars(entry,3);
                 fgets(array, sizeof(array), file);
                 strip(array); 
-                //gtk_entry_set_text(gtk_grid_get_child_at(gridt,j,i),array);
                 gtk_entry_set_text(GTK_ENTRY(entry), array);
                 gtk_grid_attach(GTK_GRID(gridt), entry, j, i, 1, 1);
                 gtk_widget_show (entry);
