@@ -22,7 +22,7 @@
  
 GtkBuilder  *builder; 
 GtkWidget  *window_SD;
-
+GdkColor color1;
 
 GtkWidget *calcular,*folder, *filenameEntry, *guardar, *tabla_input, *tabla_solucion, *table, *SalirDelPrograma, *grid1, *grid2, *gridt, *cantObj, *capacidad, *result, *resultadoFinal, *label, *box, *objetos, *maximizar;
 char *strs[50]= {"Objeto \n","Valor\n","Costo\n","#\n"};
@@ -74,6 +74,9 @@ int main(int argc, char *argv[])
     gtk_widget_set_tooltip_text(guardar, "Guarda los datos en un archivo");
     gtk_widget_set_tooltip_text(SalirDelPrograma, "Cierra el programa");
 
+    gdk_color_parse ("#ACACAC", &color1);
+
+    gtk_widget_modify_bg ( GTK_WIDGET(window_SD), GTK_STATE_NORMAL, &color1);
 
     gtk_label_set_text(GTK_LABEL(result), "Utilice \"*\" para indicar cantidad infinito.");
     g_object_unref(builder);
