@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
+<interface>
+  <requires lib="gtk+" version="3.12"/>
+  <object class="GtkWindow" id="window_SD">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Series Deportivas</property>
+    <property name="window_position">center</property>
+    <child>
+      <object class="GtkFixed" id="cont_fijo_SD">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkImage" id="fondo_SD">
+            <property name="width_request">100</property>
+            <property name="height_request">94</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="x">-296</property>
+            <property name="y">-131</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="cont_caja_principal_SD">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_top">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox" id="cont_caja_titulo_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkSeparator" id="separador_izq_titulo_SD">
+                    <property name="width_request">435</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_titulo_SD">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Algoritmo Series Deportivas</property>
+                    <property name="justify">center</property>
+                    <attributes>
+                      <attribute name="font-desc" value="DejaVu Serif Bold Italic 11"/>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="foreground" value="#000000000000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">5</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separador_der_titulo_SD">
+                    <property name="width_request">435</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="cont_fijo_tabla_SD">
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkFixed" id="tabla_SD">
+                    <property name="width_request">32</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="img_tabla_SD">
+                        <property name="width_request">480</property>
+                        <property name="height_request">253</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixbuf">fondo4.jpg</property>
+                      </object>
+                      <packing>
+                        <property name="x">-26</property>
+                        <property name="y">-17</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="cont_datos_SD">
+                        <property name="width_request">470</property>
+                        <property name="height_request">470</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkBox" id="box1">
+                            <property name="width_request">100</property>
+                            <property name="height_request">80</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkLabel" id="respuesta_SD">
+                                <property name="width_request">470</property>
+                                <property name="height_request">40</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="datos_SD">
+                                <property name="width_request">470</property>
+                                <property name="height_request">430</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="label2">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Ph de A</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">23</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label3">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Pr de A</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">61</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label4">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juegos</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">-16</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="Ph">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">72</property>
+                                    <property name="y">23</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="Pr">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">72</property>
+                                    <property name="y">62</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkFixed" id="prob">
+                                    <property name="width_request">165</property>
+                                    <property name="height_request">130</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <child>
+                                      <object class="GtkLabel" id="probabilidades1">
+                                        <property name="width_request">100</property>
+                                        <property name="height_request">80</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="x">31</property>
+                                        <property name="y">-25</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="probabilidades2">
+                                        <property name="width_request">100</property>
+                                        <property name="height_request">80</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="x">31</property>
+                                        <property name="y">24</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="x">287</property>
+                                    <property name="y">12</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="Acept">
+                                    <property name="label" translatable="yes">Aceptar</property>
+                                    <property name="width_request">86</property>
+                                    <property name="height_request">28</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <signal name="clicked" handler="on_Acept10_clicked" object="juego10" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept11_clicked" object="juego11" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept2_clicked" object="juego2" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept3_clicked" object="juego3" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept4_clicked" object="juego4" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept5_clicked" object="juego5" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept6_clicked" object="juego6" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept7_clicked" object="juego7" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept8_clicked" object="juego8" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept9_clicked" object="juego9" swapped="no"/>
+                                    <signal name="clicked" handler="on_Acept_clicked" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">99</property>
+                                    <property name="y">128</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego1">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 1</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">144</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego1">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="opacity">0.98999999999999999</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego1_changed" object="juego2" swapped="no"/>
+                                    <signal name="hide" handler="hide" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">79</property>
+                                    <property name="y">167</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego2">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 2</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">192</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego3">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 3</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">240</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego4">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 4</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">-6</property>
+                                    <property name="y">288</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego5">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 5</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">128</property>
+                                    <property name="y">144</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego6">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 6</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">128</property>
+                                    <property name="y">192</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego7">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 7</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">128</property>
+                                    <property name="y">240</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego11">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 11</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">295</property>
+                                    <property name="y">240</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego10">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 10</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">295</property>
+                                    <property name="y">192</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego9">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 9</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">295</property>
+                                    <property name="y">144</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="labJuego8">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Juego 8</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">128</property>
+                                    <property name="y">288</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego2">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego2_changed" object="juego3" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">79</property>
+                                    <property name="y">215</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego11">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego11_changed" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">390</property>
+                                    <property name="y">264</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego10">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego10_changed" object="juego11" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">390</property>
+                                    <property name="y">215</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego9">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="opacity">0.98999999999999999</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego9_changed" object="juego10" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">390</property>
+                                    <property name="y">166</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego8">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego8_changed" object="juego9" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">213</property>
+                                    <property name="y">311</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego7">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="opacity">0.95999999999999996</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego7_changed" object="juego8" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">213</property>
+                                    <property name="y">264</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego6">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego6_changed" object="juego7" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">213</property>
+                                    <property name="y">215</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego5">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego5_changed" object="juego6" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">213</property>
+                                    <property name="y">166</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego4">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego4_changed" object="juego5" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">79</property>
+                                    <property name="y">311</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="juego3">
+                                    <property name="width_request">52</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="-" translatable="yes">-</item>
+                                      <item id="A" translatable="yes">A</item>
+                                      <item id="B" translatable="yes">B</item>
+                                    </items>
+                                    <signal name="changed" handler="on_juego3_changed" object="juego4" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">79</property>
+                                    <property name="y">264</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="cantJuegos">
+                                    <property name="width_request">163</property>
+                                    <property name="height_request">22</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="resize_mode">immediate</property>
+                                    <property name="active">0</property>
+                                    <property name="button_sensitivity">on</property>
+                                    <items>
+                                      <item id="3" translatable="yes">3</item>
+                                      <item id="5" translatable="yes">5</item>
+                                      <item id="7" translatable="yes">7</item>
+                                      <item id="9" translatable="yes">9</item>
+                                      <item id="11" translatable="yes">11</item>
+                                    </items>
+                                    <signal name="changed" handler="on_cantJuegos_changed" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">74</property>
+                                    <property name="y">7</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="result">
+                                    <property name="width_request">386</property>
+                                    <property name="height_request">29</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">36</property>
+                                    <property name="y">377</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="x">-2</property>
+                        <property name="y">5</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">53</property>
+                    <property name="y">20</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFixed" id="tabla_SD1">
+                    <property name="width_request">0</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="img_tabla_SD1">
+                        <property name="width_request">100</property>
+                        <property name="height_request">80</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="x">90</property>
+                        <property name="y">-17</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="tabla_sol_SD">
+                        <property name="width_request">470</property>
+                        <property name="height_request">470</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="x">107</property>
+                        <property name="y">5</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">510</property>
+                    <property name="y">20</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="cont_caja_calc_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">30</property>
+                <property name="spacing">5</property>
+                <property name="baseline_position">top</property>
+                <child>
+                  <object class="GtkFileChooserButton" id="entry_cargar_SD">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_cargar_SD">
+                    <property name="label" translatable="yes">Cargar</property>
+                    <property name="width_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="on_btn_cargar_SD_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separador_calcular_SD">
+                    <property name="width_request">210</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_calcular_SD">
+                    <property name="label" translatable="yes">Calcular</property>
+                    <property name="width_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="on_btn_calcular_SD_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFileChooserButton" id="folder">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="action">select-folder</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="filename">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="guardar_SD">
+                    <property name="label" translatable="yes">Guardar</property>
+                    <property name="width_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="on_guardar_SD_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">7</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="cont_caja_footer_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">10</property>
+                <child>
+                  <object class="GtkSeparator" id="separador_footer_SD">
+                    <property name="width_request">902</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">6</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="SalirDelPrograma">
+                    <property name="label" translatable="yes">Salir</property>
+                    <property name="width_request">83</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">end</property>
+                    <property name="valign">end</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="xalign">0.51999998092651367</property>
+                    <signal name="clicked" handler="on_SalirDelPrograma_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="x">-2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

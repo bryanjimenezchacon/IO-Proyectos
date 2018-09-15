@@ -9,6 +9,7 @@
     <property name="title" translatable="yes">Proyecto de Investigación de Operaciones</property>
     <property name="resizable">False</property>
     <property name="icon">icon.png</property>
+    <signal name="destroy" handler="terminar" swapped="no"/>
     <child>
       <placeholder/>
     </child>
@@ -449,7 +450,7 @@
                         <property name="width_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">TBA</property>
+                        <property name="label" translatable="yes">Series Deportivas</property>
                         <attributes>
                           <attribute name="style" value="oblique"/>
                           <attribute name="weight" value="ultrabold"/>
@@ -469,7 +470,7 @@
                         <property name="height_request">80</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="pixbuf">tobe.jpg</property>
+                        <property name="pixbuf">series.png</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>

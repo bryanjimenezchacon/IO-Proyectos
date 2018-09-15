@@ -46,7 +46,7 @@ all: $(OBJS)
 	$(CC) -o Acerca src/acerca.c $(LDFLAGS)
 	$(CC) -o Rutas_Optimas src/rutas_optimas.c $(LDFLAGS)
 	$(CC) -o Mochila src/mochila.c $(LDFLAGS)
-
+	$(CC) -o Series_Deportivas src/series_deportivas.c $(LDFLAGS)
 	
     
 
