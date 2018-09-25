@@ -1,19 +1,19 @@
 /************************************************************************
- 
- Instituto Tecnológico de Costa Rica
- Investigación de Operaciones
- II Semestre 2017
-
- Proyecto 0.Menú de Programas de Programación Dinámica
-
- Profesor: Dr.Francisco J.Torres Rojas
-
- Melissa Molina Corrales
- Edwin Cen Xu
- Willian Espinoza
- Cristian León
-
- ************************************************************************/
+# 
+# Instituto Tecnológico de Costa Rica
+# Investigación de Operaciones Gr 40
+#
+#
+# Proyecto 3.Series Deportivas
+#
+# Profesor: Dr.Francisco J.Torres Rojas
+#
+# Bryan Steve Jiménez Chacón
+# Patrick Maynard Gamboa
+# Dario Monestel Corella
+# 
+# II Semestre 2018
+# ************************************************************************/
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -21,7 +21,7 @@
 
  
 GtkBuilder  *builder; 
-GtkWidget  *window_SD;
+GtkWidget  *window;
 GtkWidget *cantJuegos;
 GtkWidget *g_Ph;
 GtkWidget *g_Pr;
@@ -57,7 +57,11 @@ GtkWidget *datos_SD;
 GtkWidget *tabla_sol_SD;
 GtkWidget *tabla_nuevo_SD;
 GtkWidget * grid2;
+GtkWidget *scaleCasa, *scaleVisita;
 
+
+GtkWidget *A1, *A2, *A3, *A4, *A5, *A6, *A7, *A8, *A9, *A10, *A11, *B1, *B2, *B3 , *B4, *B5, *B6, *B7, *B8, *B9, *B10, *B11, *C3, *C5, *C7, *C9, *C11;
+GtkWidget *L1, *L2, *L3, *L4, *L5, *L6, *L7, *L8, *L9, *L10, *L11;
 
 
 
@@ -84,67 +88,755 @@ int main(int argc, char *argv[])
     gtk_init(&argc, &argv);
  
     builder = gtk_builder_new();
-    gtk_builder_add_from_file (builder, "glade/Series_Deportivas.glade", NULL);
- 
-    window_SD = GTK_WIDGET(gtk_builder_get_object(builder, "window_SD"));
+    gtk_builder_add_from_file (builder, "glade/Equipos.glade", NULL);
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
+    gtk_builder_connect_signals(builder, NULL); 
+
+    A1 = GTK_WIDGET(gtk_builder_get_object(builder, "A1"));
+    A2 = GTK_WIDGET(gtk_builder_get_object(builder, "A2"));
+    A3 = GTK_WIDGET(gtk_builder_get_object(builder, "A3"));
+    A4 = GTK_WIDGET(gtk_builder_get_object(builder, "A4"));
+    A5 = GTK_WIDGET(gtk_builder_get_object(builder, "A5"));
+    A6 = GTK_WIDGET(gtk_builder_get_object(builder, "A6"));
+    A7 = GTK_WIDGET(gtk_builder_get_object(builder, "A7"));
+    A8 = GTK_WIDGET(gtk_builder_get_object(builder, "A8"));
+    A9 = GTK_WIDGET(gtk_builder_get_object(builder, "A9"));
+    A10 = GTK_WIDGET(gtk_builder_get_object(builder, "A10"));
+    A11 = GTK_WIDGET(gtk_builder_get_object(builder, "A11"));
+
+    B1 = GTK_WIDGET(gtk_builder_get_object(builder, "B1"));
+    B2 = GTK_WIDGET(gtk_builder_get_object(builder, "B2"));
+    B3 = GTK_WIDGET(gtk_builder_get_object(builder, "B3"));
+    B4 = GTK_WIDGET(gtk_builder_get_object(builder, "B4"));
+    B5 = GTK_WIDGET(gtk_builder_get_object(builder, "B5"));
+    B6 = GTK_WIDGET(gtk_builder_get_object(builder, "B6"));
+    B7 = GTK_WIDGET(gtk_builder_get_object(builder, "B7"));
+    B8 = GTK_WIDGET(gtk_builder_get_object(builder, "B8"));
+    B9 = GTK_WIDGET(gtk_builder_get_object(builder, "B9"));
+    B10 = GTK_WIDGET(gtk_builder_get_object(builder, "B10"));
+    B11 = GTK_WIDGET(gtk_builder_get_object(builder, "B11"));
+
+    L1 = GTK_WIDGET(gtk_builder_get_object(builder, "L1"));
+    L2 = GTK_WIDGET(gtk_builder_get_object(builder, "L2"));
+    L3 = GTK_WIDGET(gtk_builder_get_object(builder, "L3"));
+    L4 = GTK_WIDGET(gtk_builder_get_object(builder, "L4"));
+    L5 = GTK_WIDGET(gtk_builder_get_object(builder, "L5"));
+    L6 = GTK_WIDGET(gtk_builder_get_object(builder, "L6"));
+    L7 = GTK_WIDGET(gtk_builder_get_object(builder, "L7"));
+    L8 = GTK_WIDGET(gtk_builder_get_object(builder, "L8"));
+    L9 = GTK_WIDGET(gtk_builder_get_object(builder, "L9"));
+    L10 = GTK_WIDGET(gtk_builder_get_object(builder, "L10"));
+    L11 = GTK_WIDGET(gtk_builder_get_object(builder, "L11"));
+
+    C3 = GTK_WIDGET(gtk_builder_get_object(builder, "C3"));
+    C5 = GTK_WIDGET(gtk_builder_get_object(builder, "C5"));
+    C7 = GTK_WIDGET(gtk_builder_get_object(builder, "C7"));
+    C9 = GTK_WIDGET(gtk_builder_get_object(builder, "C9"));
+    C11 = GTK_WIDGET(gtk_builder_get_object(builder, "C11"));
+
+    scaleCasa = GTK_WIDGET(gtk_builder_get_object(builder, "scaleCasa"));
+    scaleVisita = GTK_WIDGET(gtk_builder_get_object(builder, "scaleVisita"));
+
     
 
-    gtk_builder_connect_signals(builder, NULL);   
-    g_Ph = GTK_WIDGET(gtk_builder_get_object(builder, "Ph"));
-    g_Pr = GTK_WIDGET(gtk_builder_get_object(builder, "Pr"));
+    
     probabilidades1 = GTK_WIDGET(gtk_builder_get_object(builder, "probabilidades1"));
     probabilidades2 = GTK_WIDGET(gtk_builder_get_object(builder, "probabilidades2"));
 
-    entry_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "entry_cargar_SD"));
     result = GTK_WIDGET(gtk_builder_get_object(builder, "result"));
-    folder = GTK_WIDGET(gtk_builder_get_object(builder, "folder"));
-    filenameEntry = GTK_WIDGET(gtk_builder_get_object(builder, "filename"));
-    cantJuegos = GTK_WIDGET(gtk_builder_get_object(builder, "cantJuegos"));
-    Acept = GTK_WIDGET(gtk_builder_get_object(builder, "Acept"));
     btn_calcular_SD = GTK_WIDGET(gtk_builder_get_object(builder, "btn_calcular_SD"));
-    guardar = GTK_WIDGET(gtk_builder_get_object(builder, "guardar_SD"));
-    btn_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "btn_cargar_SD"));
-    SalirDelPrograma = GTK_WIDGET(gtk_builder_get_object(builder, "SalirDelPrograma"));
-
-
-    juego1 = GTK_WIDGET(gtk_builder_get_object(builder, "juego1"));
-    juego2 = GTK_WIDGET(gtk_builder_get_object(builder, "juego2"));
-    juego3 = GTK_WIDGET(gtk_builder_get_object(builder, "juego3"));
-    juego4 = GTK_WIDGET(gtk_builder_get_object(builder, "juego4"));
-    juego5 = GTK_WIDGET(gtk_builder_get_object(builder, "juego5"));
-    juego6 = GTK_WIDGET(gtk_builder_get_object(builder, "juego6"));
-    juego7 = GTK_WIDGET(gtk_builder_get_object(builder, "juego7"));
-    juego8 = GTK_WIDGET(gtk_builder_get_object(builder, "juego8"));
-    juego9 = GTK_WIDGET(gtk_builder_get_object(builder, "juego9"));
-    juego10 = GTK_WIDGET(gtk_builder_get_object(builder, "juego10"));
-    juego11 = GTK_WIDGET(gtk_builder_get_object(builder, "juego11"));
-    datos_SD = GTK_WIDGET(gtk_builder_get_object(builder, "datos_SD"));
     tabla_sol_SD = GTK_WIDGET(gtk_builder_get_object(builder, "tabla_sol_SD"));
 
 
-    gtk_widget_set_tooltip_text(Acept, "Calcula las probabilidades");
-    gtk_widget_set_tooltip_text(entry_cargar_SD, "Seleccionar un archivo");
     gtk_widget_set_tooltip_text(btn_calcular_SD, "Calcula la tabla con las probabilidades de A y B");
-    gtk_widget_set_tooltip_text(folder, "Seleccionar un directorio");
-    gtk_widget_set_tooltip_text(filenameEntry, "Nombre del archivo a guardar");
-    gtk_widget_set_tooltip_text(guardar, "Guarda los datos en un archivo");
-    gtk_widget_set_tooltip_text(btn_cargar_SD, "Carga el archivo seleccionado");
-    gtk_widget_set_tooltip_text(SalirDelPrograma, "Cierra el programa");
-
     g_object_unref(builder);
-
-   
-    gtk_widget_show(window_SD);
-                              
+    botonesVacios();
+    gtk_widget_show(window);
+                             
     gtk_main();
     return 0;
 } 
+
+void botonesVacios()
+{
+    gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Vacio.png"));
+    gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Vacio.png"));
+
+
+}
+
+void ocultar(int c)
+{
+
+    switch(c) {
+      case 3 :
+        gtk_widget_set_visible (GTK_LABEL(L1), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L2), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L3), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L4), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L5), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L6), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L7), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L8), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L9), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L10), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(A1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A4), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A5), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A6), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A7), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(B1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B4), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B5), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B6), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B7), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B11), FALSE);
+         break;
+
+      case 5 :
+        gtk_widget_set_visible (GTK_LABEL(L1), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L2), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L3), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L4), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L5), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L6), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L7), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L8), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L9), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L10), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(A1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A6), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A7), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(B1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B6), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B7), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B11), FALSE);
+
+
+        break;
+
+      case 7 :
+        gtk_widget_set_visible (GTK_LABEL(L1), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L2), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L3), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L4), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L5), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L6), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L7), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L8), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L9), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L10), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(A1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(B1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B8), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B9), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B11), FALSE);
+         break;
+
+       case 9 :
+        gtk_widget_set_visible (GTK_LABEL(L1), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L2), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L3), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L4), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L5), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L6), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L7), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L8), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L9), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L10), FALSE);
+        gtk_widget_set_visible (GTK_LABEL(L11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(A1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A8), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A9), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(A11), FALSE);
+
+        gtk_widget_set_visible (GTK_BUTTON(B1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B8), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B9), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B10), FALSE);
+        gtk_widget_set_visible (GTK_BUTTON(B11), FALSE);
+         break;
+
+        case 11: 
+        gtk_widget_set_visible (GTK_LABEL(L1), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L2), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L3), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L4), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L5), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L6), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L7), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L8), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L9), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L10), TRUE);
+        gtk_widget_set_visible (GTK_LABEL(L11), TRUE);
+
+        gtk_widget_set_visible (GTK_BUTTON(A1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A8), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A9), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A10), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(A11), TRUE);
+
+        gtk_widget_set_visible (GTK_BUTTON(B1), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B2), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B3), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B4), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B5), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B6), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B7), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B8), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B9), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B10), TRUE);
+        gtk_widget_set_visible (GTK_BUTTON(B11), TRUE);
+         break;
+
+      default :
+         printf("Invalid grade\n" );
+     }
+}
+
+void SignalSalir()
+{
+    gtk_widget_destroy(GTK_WIDGET(window));
+}
+
+
+
+void uncheck(int c)
+{
+
+    switch(c) {
+      case 3 :
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C5), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C7), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C9), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C11), FALSE);
+         break;
+      case 5 :
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C3), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C7), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C9), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C11), FALSE);
+        break;
+      case 7 :
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C3), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C5), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C9), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C11), FALSE);
+         break;
+      case 9 :
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C3), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C5), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C7), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C11), FALSE);
+         break;
+      case 11 : 
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C3), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C5), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C7), FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C9), FALSE);
+         break;
+      default :
+         printf("Invalid grade\n" );
+     }
+   
+}
+
+void on_C3_toggled()
+{
+    if(gtk_toggle_button_get_active(C3)){
+        uncheck(3);
+        ocultar(3);
+    }
+    
+    totalJuegos = 3;
+    mitadJuegos = 3;
+}
+
+void on_C5_toggled()
+{
+    if(gtk_toggle_button_get_active(C5)){
+        uncheck(5);
+        ocultar(5);
+    }
+    totalJuegos = 5;
+    mitadJuegos = 4;
+    
+
+}
+
+void on_C7_toggled()
+{
+    if(gtk_toggle_button_get_active(C7)){
+        uncheck(7);
+        ocultar(7);
+    }
+    totalJuegos = 7;
+    mitadJuegos = 5;
+    
+
+}
+
+void on_C9_toggled()
+{
+    if(gtk_toggle_button_get_active(C9)){
+        uncheck(9);
+        ocultar(9);
+    }
+    totalJuegos = 9;
+    mitadJuegos = 6;
+    
+
+}
+
+void on_C11_toggled()
+{
+    if(gtk_toggle_button_get_active(C11)){
+        uncheck(11);
+        ocultar(11);
+    }
+    totalJuegos = 11;
+    mitadJuegos = 7;
+    
+
+}
+
+void on_A1_clicked()
+{
+    if(lugar_juego[0] == 1){
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[0] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[0] = 1;
+    }
+    
+}
+
+void on_B1_clicked()
+{
+    if(lugar_juego[0] == 2){
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[0] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[0] = 2;
+    }
+    
+}
+
+void on_A2_clicked()
+{
+    if(lugar_juego[1] == 1){
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[1] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[1] = 1;
+    }
+    
+}
+
+void on_B2_clicked()
+{
+    if(lugar_juego[1] == 2){
+        gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[1] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[1] = 2;
+    }
+    
+}
+
+void on_A3_clicked()
+{
+    if(lugar_juego[2] == 1){
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[2] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[2] = 1;
+    }
+    
+}
+
+void on_B3_clicked()
+{
+    if(lugar_juego[2] == 2){
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[2] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[2] = 2;
+    }
+    
+}
+
+void on_A4_clicked()
+{
+    if(lugar_juego[3] == 1){
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[3] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[3] = 1;
+    }
+    
+}
+
+void on_B4_clicked()
+{
+    if(lugar_juego[3] == 2){
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[3] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[3] = 2;
+    }
+    
+}
+
+void on_A5_clicked()
+{
+    if(lugar_juego[4] == 1){
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[4] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[4] = 1;
+    }
+    
+}
+
+void on_B5_clicked()
+{
+    if(lugar_juego[4] == 2){
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[4] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[4] = 2;
+    }
+    
+}
+
+void on_A6_clicked()
+{
+    if(lugar_juego[5] == 1){
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[5] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[5] = 1;
+    }
+    
+}
+
+void on_B6_clicked()
+{
+    if(lugar_juego[5] == 2){
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[5] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[5] = 2;
+    }
+    
+}
+
+void on_A7_clicked()
+{
+    if(lugar_juego[6] == 1){
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[6] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[6] = 1;
+    }
+    
+}
+
+void on_B7_clicked()
+{
+    if(lugar_juego[6] == 2){
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[6] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[6] = 2;
+    }
+    
+}
+
+void on_A8_clicked()
+{
+    if(lugar_juego[7] == 1){
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[7] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[7] = 1;
+    }
+    
+}
+
+void on_B8_clicked()
+{
+    if(lugar_juego[7] == 2){
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[7] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[7] = 2;
+    }
+    
+}
+
+void on_A9_clicked()
+{
+    if(lugar_juego[8] == 1){
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[8] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[8] = 1;
+    }
+    
+}
+
+void on_B9_clicked()
+{
+    if(lugar_juego[8] == 2){
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[8] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[8] = 2;
+    }
+    
+}
+
+void on_A10_clicked()
+{
+    if(lugar_juego[9] == 1){
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[9] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[9] = 1;
+    }
+    
+}
+
+void on_B10_clicked()
+{
+    if(lugar_juego[9] == 2){
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[9] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[9] = 2;
+    }
+    
+}
+
+void on_A11_clicked()
+{
+    if(lugar_juego[10] == 1){
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[10] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[10] = 1;
+    }
+    
+}
+
+void on_B11_clicked()
+{
+    if(lugar_juego[10] == 2){
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Vacio.png"));
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Vacio.png"));
+        lugar_juego[10] = 0;
+    }
+    else{
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Rojo.png"));
+        lugar_juego[10] = 2;
+    }
+    
+}
+
+void imprimirBotones()
+{
+    for(int i = 0; i < totalJuegos; i++)
+    {
+        g_print("%i", lugar_juego[i]);
+    }
+    g_print("%s\n", "");
+}
  
 
 void on_SalirDelPrograma_clicked()
 {
-    gtk_widget_destroy(window_SD);
+    gtk_widget_destroy(window);
 }
+
 
 
 void CrearTabla(){
@@ -172,7 +864,7 @@ void CrearTabla(){
             if (i==-1){
                 if(j==-1){
                     label = gtk_label_new ("");
-                    gtk_widget_set_size_request(label, 470/(mitadJuegos+ 2), 470/(mitadJuegos+ 2));
+                    gtk_widget_set_size_request(label, 700/(mitadJuegos+ 2), 700/(mitadJuegos+ 2));
 
                     box = gtk_box_new(0, 0);
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -190,7 +882,7 @@ void CrearTabla(){
                     sprintf(val,"%d", j);
 
                     label = gtk_label_new (val);
-                    gtk_widget_set_size_request(label, 470/(mitadJuegos + 2), 470/(mitadJuegos + 2));
+                    gtk_widget_set_size_request(label, 700/(mitadJuegos + 2), 700/(mitadJuegos + 2));
 
                     box = gtk_box_new(0, 0);
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -210,7 +902,7 @@ void CrearTabla(){
                     sprintf(val,"%d", i);
 
                     label = gtk_label_new (val);
-                    gtk_widget_set_size_request(label, 470/(mitadJuegos + 2), 470/(mitadJuegos + 2));
+                    gtk_widget_set_size_request(label, 700/(mitadJuegos + 2), 700/(mitadJuegos + 2));
 
                     box = gtk_box_new(0, 0);
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -226,7 +918,7 @@ void CrearTabla(){
                 else{
                     if((j==0)&&(i==0)){
                         label = gtk_label_new ("");
-                        gtk_widget_set_size_request(label, 470/(mitadJuegos+ 2), 470/(mitadJuegos + 2));
+                        gtk_widget_set_size_request(label, 700/(mitadJuegos+ 2), 700/(mitadJuegos + 2));
 
                         box = gtk_box_new(0, 0);
                         gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -245,13 +937,13 @@ void CrearTabla(){
                         sprintf(val,"%.*f", 4, tabla[i][j]);
 
                         label = gtk_label_new (val);
-                        gtk_widget_set_size_request(label, 470/(mitadJuegos+ 2), 470/(mitadJuegos + 2));
+                        gtk_widget_set_size_request(label, 700/(mitadJuegos+ 2), 700/(mitadJuegos + 2));
 
                         box = gtk_box_new(0, 0);
                         gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                         const GdkRGBA *color;
                         
-                        gdk_color_parse( "#FE2E64", &color );
+                        gdk_color_parse( "#9d1215", &color );
                         gtk_widget_modify_bg(box, GTK_STATE_NORMAL, &color);
                         gtk_grid_attach(GTK_GRID(grid2), box, j+1, i+1, 1, 1);
 
@@ -265,7 +957,7 @@ void CrearTabla(){
                    
 
                         label = gtk_label_new (val);
-                        gtk_widget_set_size_request(label, 470/(mitadJuegos + 2), 470/(mitadJuegos+ 2));
+                        gtk_widget_set_size_request(label, 700/(mitadJuegos + 2), 700/(mitadJuegos+ 2));
 
                          box = gtk_box_new(0, 0);
                         gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
@@ -288,17 +980,32 @@ void CrearTabla(){
     
 }
 
+void on_scaleCasa_value_changed()
+{
+    //gtk_range_get_value(scaleCasa);
+    ph = gtk_range_get_value(GTK_RANGE(scaleCasa));
+    calcular();
+    //g_print("%f", ph);
+}
+
+void on_scaleVisita_value_changed()
+{
+    pr = gtk_range_get_value(GTK_RANGE(scaleVisita));
+    calcular();
+    //g_print("%f", pr);
+}
+
 
 
 int on_btn_calcular_SD_clicked()
 {   
     if(ph==0 && pr==0){
-        gtk_label_set_text(GTK_LABEL(result), "Los campos no pueden estar vacíos.");
+        gtk_label_set_text(GTK_LABEL(result), "Las dos probabilidades no pueden ser cero");
         return 0;
     }
     for(int i = 0; i < totalJuegos;i++){
         if(lugar_juego[i]==0){
-            gtk_label_set_text(GTK_LABEL(result), "Falta un formato de la serie.");
+            gtk_label_set_text(GTK_LABEL(result), "No se ha definido la ubicacion de todos los partidos");
             return 0;
         }
     }
@@ -343,32 +1050,8 @@ int on_btn_calcular_SD_clicked()
     gtk_label_set_text(GTK_LABEL(result), val);
 }
 
-int on_guardar_SD_clicked ()
-{
-    char * filename[250];
 
-    char* name = gtk_entry_get_text (filenameEntry);
-
-    if(strlen(name)==0){
-        gtk_label_set_text(GTK_LABEL(result), "Escriba el nombre del archivo.");
-        return 0;
-    }
-
-    char* folderfile = gtk_file_chooser_get_filename(folder);
-    if(folderfile==NULL){
-        gtk_label_set_text(GTK_LABEL(result), "Selecione un folder.");
-        return 0;
-    }
-
-    sprintf(filename,"%s/%s", folderfile, name);
-
-    writeFile(filename);
-
-    gtk_entry_set_text (filenameEntry, "");
-    gtk_label_set_text(GTK_LABEL(result), "Se guardó exitosamente.");
-
-}
-void writeFile(char* filename)
+void f_guardar(char* filename)
 {
 
     FILE *file;
@@ -390,18 +1073,9 @@ void writeFile(char* filename)
     fclose(file);
 }
 
-int on_btn_cargar_SD_clicked(){
-    const gchar *filename;
-    filename = gtk_file_chooser_get_filename (entry_cargar_SD);
-    if(filename==NULL){
-        gtk_label_set_text(GTK_LABEL(result), "Selecione un archivo.");
-        return 0;
-    }
-    readFile(filename);
-}
 
 
-void readFile(char* filename)
+void abrir(char* filename)
 {    
  
 
@@ -429,32 +1103,22 @@ void readFile(char* filename)
 
     
     if(totalJuegos==3){
-        gtk_combo_box_set_active(cantJuegos,0);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C3), TRUE);
     }
     if(totalJuegos==5){
-        gtk_combo_box_set_active(cantJuegos,1);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C5), TRUE);
     }
     if(totalJuegos==7){
-        gtk_combo_box_set_active(cantJuegos,2);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C7), TRUE);
     }
     if(totalJuegos==9){
-        gtk_combo_box_set_active(cantJuegos,3);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C9), TRUE);
     }
     if(totalJuegos==11){
-        gtk_combo_box_set_active(cantJuegos,4);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(C11), TRUE);
     }
 
-    gtk_combo_box_set_active(juego1,lugar_juego[0]);
-    gtk_combo_box_set_active(juego2,lugar_juego[1]);
-    gtk_combo_box_set_active(juego3,lugar_juego[2]);
-    gtk_combo_box_set_active(juego4,lugar_juego[3]);
-    gtk_combo_box_set_active(juego5,lugar_juego[4]);
-    gtk_combo_box_set_active(juego6,lugar_juego[5]);
-    gtk_combo_box_set_active(juego7,lugar_juego[6]);
-    gtk_combo_box_set_active(juego8,lugar_juego[7]);
-    gtk_combo_box_set_active(juego9,lugar_juego[8]);
-    gtk_combo_box_set_active(juego10,lugar_juego[9]);
-    gtk_combo_box_set_active(juego11,lugar_juego[10]);
+    actualizarIdaVuelta();
 
     char array[10];
 
@@ -462,11 +1126,13 @@ void readFile(char* filename)
     int prt = pr*10000;
    
 
-    snprintf(array, sizeof(array), "0.%d", pht);
-    gtk_entry_set_text(GTK_ENTRY(g_Ph),array);
+    //snprintf(array, sizeof(array), "0.%d", pht);
+    gtk_range_set_value(GTK_RANGE(scaleCasa), ph);
+    gtk_range_set_value(GTK_RANGE(scaleVisita), pr);
+    //gtk_entry_set_text(GTK_ENTRY(g_Ph),array);
 
-    snprintf(array, sizeof(array), "0.%d", prt);
-    gtk_entry_set_text(GTK_ENTRY(g_Pr),array);
+    //snprintf(array, sizeof(array), "0.%d", prt);
+    //gtk_entry_set_text(GTK_ENTRY(g_Pr),array);
 
     char val[40];
     strcpy(val,"Ph = ");
@@ -498,6 +1164,130 @@ void readFile(char* filename)
 
     gtk_label_set_text(GTK_LABEL(probabilidades2), val);
 
+}
+
+void actualizarIdaVuelta()
+{
+    if(lugar_juego[0] == 1){
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[0] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A1), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[1] == 1){
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B2), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[1] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A2), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B1), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[2] == 1){
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[2] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A3), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B3), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[3] == 1){
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[3] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A4), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B4), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[4] == 1){
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[4] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A5), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B5), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[5] == 1){
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[5] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A6), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B6), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[6] == 1){
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[6] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A7), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B7), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[7] == 1){
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[7] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A8), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B8), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[8] == 1){
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[8] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A9), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B9), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[9] == 1){
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[9] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A10), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B10), gtk_image_new_from_file ("glade/Verde.png"));
+    }
+
+    if(lugar_juego[10] == 1){
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Verde.png"));
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Rojo.png"));
+    }
+    else
+        if(lugar_juego[10] == 2)
+    {
+        gtk_button_set_image (GTK_BUTTON (A11), gtk_image_new_from_file ("glade/Rojo.png"));
+        gtk_button_set_image (GTK_BUTTON (B11), gtk_image_new_from_file ("glade/Verde.png"));
+    }
 
 }
 
@@ -523,52 +1313,10 @@ float stof(const char* s){
 
 
 
-int on_Acept_clicked(){
+int calcular(){
 
-    const gchar *phS;
-    phS = gtk_entry_get_text(GTK_ENTRY(g_Ph));
-    ph = stof(phS);
-    const gchar *prS;
-    prS = gtk_entry_get_text(GTK_ENTRY(g_Pr));
-    pr = stof(prS);
-    
-    if(strlen(phS)==0 || strlen(prS)==0){
-        gtk_label_set_text(GTK_LABEL(result), "Los campos no pueden estar vacíos.");
-        return 0;
-    }
-    for(int i = 0 ; i <strlen(phS);i++){
- 
-        if(phS[i]=='.'){
-            continue;
-        }
-    if(isdigit(phS[i])==FALSE){
-            gtk_label_set_text(GTK_LABEL(result), "ph y pr tiene que ser entre 0 y 1.");
-            return 0;
-        }
-    }
-    for(int i = 0 ; i <strlen(prS);i++){
-        if(prS[i]=='.'){
-            continue;
-        }
-        if(isdigit(prS[i])==FALSE){
-            gtk_label_set_text(GTK_LABEL(result), "ph y pr tiene que ser entre 0 y 1.");
-            return 0;
-        }
-    }
-
-    if((ph >= 0 && ph <=1)&&(pr >= 0 && pr <=1)){
-        qr = 1 - ph;
-        qh = 1 - pr;
-        gtk_label_set_text(GTK_LABEL(result), "");
-    }else{
- 
-        gtk_label_set_text(GTK_LABEL(result), "ph y pr tiene que ser entre 0 y 1.");
-        return 0;
-    }
-
-
- 
-
+    qr = 1 - ph;
+    qh = 1 - pr;
     char val[40];
     strcpy(val,"Ph = ");
     char v[12];
@@ -601,116 +1349,31 @@ int on_Acept_clicked(){
 
 }
 
-
-void on_juego2_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[1] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego3_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[2] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego4_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[3] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego5_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[4] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego6_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[5] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego7_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;    
-    lugar_juego[6] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego8_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[7] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego9_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[8] = gtk_combo_box_get_active (combo_box);
-}
-void on_juego10_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    lugar_juego[9] = gtk_combo_box_get_active (combo_box);
-}
-
-void on_juego11_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    
-    
-    lugar_juego[10] = gtk_combo_box_get_active (combo_box);
-}
-
-void on_juego1_changed(GtkWidget *widget,GtkWidget *widget2){
-
-    GtkComboBox *combo_box = widget;
-    /*gint pos = gtk_combo_box_get_active (combo_box);
-    gint first = 0;
-    gtk_widget_get_active(widget);*/
-    /*if(pos != first){
-        gtk_widget_set_sensitive (widget2, TRUE);
-    }*/
-    lugar_juego[0] = gtk_combo_box_get_active (combo_box);
-
-
-}
-
-
-
-void on_cantJuegos_changed (GtkWidget *widget)
+void SignalAbrir(gpointer window)
 {
-  //gtk_widget_set_sensitive (widget2, TRUE);
-    mitadJuegos=3;
-    GtkComboBox *combo_box = widget;
-    switch (gtk_combo_box_get_active (combo_box)){
-        case 0:
-            mitadJuegos=3;
-            break;
-        case 1:
-            mitadJuegos=4;
-            break;
-        case 2:
-            mitadJuegos=5;
-            break;
-        case 3:
-            mitadJuegos=6;
-            break;
-        case 4:
-            mitadJuegos=7;
-            break;
-    
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Abrir archivo", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+    gtk_widget_show_all(dialog);
+    gint resp = gtk_dialog_run(GTK_DIALOG(dialog));
+    if(resp == GTK_RESPONSE_OK)
+    {
+        abrir(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+        g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
     }
-    switch (gtk_combo_box_get_active (combo_box)){
-        case 0:
-            totalJuegos=3;
-            break;
-        case 1:
-            totalJuegos=5;
-            break;
-        case 2:
-            totalJuegos=7;
-            break;
-        case 3:
-            totalJuegos=9;
-            break;
-        case 4:
-            totalJuegos=11;
-            break;
-    
+    gtk_widget_destroy(dialog);
+}
+
+void SignalSalvar()
+{
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Salvar archivo", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+    gtk_widget_show_all(dialog);
+    gint resp = gtk_dialog_run(GTK_DIALOG(dialog));
+    if(resp == GTK_RESPONSE_OK)
+    {
+        g_print("%s\n", gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+        f_guardar(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
     }
+    gtk_widget_destroy(dialog);
+
 }
