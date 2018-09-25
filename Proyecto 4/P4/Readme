@@ -1,0 +1,27 @@
+/************************************************************************
+# 
+# Instituto Tecnológico de Costa Rica
+# Investigación de Operaciones Gr 40
+#
+#
+# Proyecto 0.Menú para Programas de Programación Dinámica
+#
+# Profesor: Dr.Francisco J.Torres Rojas
+#
+# Bryan Steve Jiménez Chacón
+# Patrick Maynard Gamboa
+# Dario Monestel Corella
+# 
+# II Semestre 2018
+# ************************************************************************/
+
+
+Requerimientos:
+	
+	1) Instalar GTK 3: sudo apt-get install libgtk-3-dev.
+	2) Instalar Glade: sudo apt-get install glade.
+	3) Ejecutar el comando make en la carpeta
+
+
+Al ejecutar el makefile se compilara todo el programa para ejecutarlo utilizar el comando 
+./main_menu
