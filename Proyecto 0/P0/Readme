@@ -20,6 +20,7 @@ Requerimientos:
 	
 	1) Instalar GTK 3: sudo apt-get install libgtk-3-dev.
 	2) Instalar Glade: sudo apt-get install glade.
+			sudo apt-get install graphviz
 	3) Ejecutar el comando make en la carpeta
 
 
