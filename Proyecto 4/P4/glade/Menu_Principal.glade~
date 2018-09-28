@@ -374,7 +374,7 @@
                         <property name="width_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">TBA</property>
+                        <property name="label" translatable="yes">Reemplazo de Equipos</property>
                         <attributes>
                           <attribute name="style" value="oblique"/>
                           <attribute name="weight" value="ultrabold"/>
@@ -394,7 +394,7 @@
                         <property name="height_request">80</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="pixbuf">tobe.jpg</property>
+                        <property name="pixbuf">reemplazo.jpg</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -532,7 +532,7 @@
             <signal name="clicked" handler="on_btnAcerca_clicked" swapped="no"/>
           </object>
           <packing>
-            <property name="x">50</property>
+            <property name="x">120</property>
             <property name="y">700</property>
           </packing>
         </child>
