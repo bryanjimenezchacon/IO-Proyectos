@@ -551,6 +551,7 @@ void readFile(char* filename)
 void on_vidaUtil_changed(GtkWidget *widget){
     GtkComboBox *combo_box = widget;
     vidaUtil = gtk_combo_box_get_active (combo_box)+1;
+    on_aceptPlan_clicked();
 }
 
 int on_aceptPlan_clicked(){
@@ -569,8 +570,8 @@ int on_aceptPlan_clicked(){
         gtk_label_set_text(GTK_LABEL(result), "El costo tiene que ser mayor que 0.");
         return 0;
     }
-    if(t<=0||t > 50){
-        gtk_label_set_text(GTK_LABEL(result), "El plan tiene que ser mayor que 0 y menor que 50");
+    if(t<=0||t > 30){
+        gtk_label_set_text(GTK_LABEL(result), "El plan tiene que ser mayor que 0 y menor que 30");
         return 0;
     }
     costoini = c;

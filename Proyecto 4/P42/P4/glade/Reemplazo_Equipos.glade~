@@ -12,6 +12,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-missing-image</property>
   </object>
+  <object class="GtkImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
   <object class="GtkWindow" id="window_SD">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Algoritmo de Floyd</property>
@@ -431,23 +436,29 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
-                              <object class="GtkImageMenuItem" id="b_abrir">
+                              <object class="GtkImageMenuItem" id="b_Abrir">
                                 <property name="label" translatable="yes">Abrir</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="image">__glade_unnamed_4</property>
+                                <property name="image">__glade_unnamed_5</property>
                                 <property name="use_stock">False</property>
                                 <signal name="activate" handler="SignalAbrir" swapped="no"/>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkImageMenuItem" id="b_salvar">
+                              <object class="GtkImageMenuItem" id="b_Salvar">
                                 <property name="label" translatable="yes">Salvar</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="image">__glade_unnamed_5</property>
+                                <property name="image">__glade_unnamed_4</property>
                                 <property name="use_stock">False</property>
                                 <signal name="activate" handler="SignalSalvar" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparatorMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                             </child>
                             <child>
@@ -455,7 +466,7 @@
                                 <property name="label" translatable="yes">Salir</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="image">__glade_unnamed_6</property>
+                                <property name="image">__glade_unnamed_9</property>
                                 <property name="use_stock">False</property>
                                 <signal name="activate" handler="SignalSalir" swapped="no"/>
                               </object>
@@ -650,10 +661,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
   </object>
 </interface>
