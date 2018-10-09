@@ -50,7 +50,7 @@ GtkWidget *label;
 GtkWidget *box;
 
 
-char *strs[50]= {"Años","Mantenimiento","Reventa"};
+char *strs[50]= {"Años","Mantenimiento","Reventa", "Ganancia"};
 char *strs2[50]= {"t","G(t)","Próximo"};
 
 
@@ -108,6 +108,8 @@ int main(int argc, char *argv[])
     return 0;
 } 
 
+
+//Limpia la tabla para empezar
 void deleteTablesGrid(GtkWidget *widget)
 {
     GList *children, *iter;
@@ -118,7 +120,7 @@ void deleteTablesGrid(GtkWidget *widget)
     g_list_free(children);
 
 }
-
+//Iniciar calculo 1
 void calcularC(){
     char v[12];
     int limitador = 0;
@@ -154,7 +156,7 @@ void calcularC(){
     strcat(val,"\n");
     
 }
-
+//Iniciar calculo 2
 void calcularG(){
     char v[12];
     int reg = 0;
@@ -223,7 +225,7 @@ void revisarMenor(int tempmenor, int i){
     }
 }
 
-
+//Iniciar el calculo de las operaciones
 int on_btn_calcular_clicked(){
 
 	deleteTablesGrid(tabla_planAux);
@@ -237,17 +239,17 @@ int on_btn_calcular_clicked(){
 
 
     for(int i=1;i<=vidaUtil;i++){ 
-        for(int j=2;j<4;j++){
+        for(int j=2;j<5;j++){
             
                 const gchar *cant_nodos;
                 cant_nodos = gtk_entry_get_text(gtk_grid_get_child_at (gridt,j,i));
                 int valor = atoi(cant_nodos);
                 if(isdigit(cant_nodos[0])==FALSE){
-                    gtk_label_set_text(GTK_LABEL(result), "Los valores de la tabla no pueden tener letras.");
+                    gtk_label_set_text(GTK_LABEL(result), "Los valores de la tabla deben ser numéricos.");
                     return 0;
                 }
                 else if(valor < 0){
-                    gtk_label_set_text(GTK_LABEL(result), "Los valores de la tabla tienen que ser mayor o igual que 0");
+                    gtk_label_set_text(GTK_LABEL(result), "Los valores de la tabla tienen que ser mayores o igual que 0");
                     return 0;
                 }
                 else{
@@ -256,9 +258,10 @@ int on_btn_calcular_clicked(){
             
         }
     }
-    calcularC();
-    calcularG();
-    CrearTabla();
+    calcularC();//Iniciar calculo 1
+    calcularG();//Iniciar calculo 2
+    CrearTabla();//Iniciar calculo 3
+    //Iniciar calculo 4
     sprintf(val,"%s","");
     for(int t = 0;t < tiempototal;t++){
         char v[10];
@@ -266,11 +269,11 @@ int on_btn_calcular_clicked(){
         sprintf(v,"%d",t);
         strcat(val,v);
         strcat(val,": \n");
-        mostrarPlanes(t);
+        mostrarPlanes(t); //Muestra los planes optimos
     }
     gtk_label_set_text(GTK_LABEL(resultplanes), val);
 }
-
+//Muestra los planes optimos
 int mostrarPlanes(int ind){
     char v[30];
     if(ind == tiempototal){
@@ -290,18 +293,7 @@ int mostrarPlanes(int ind){
         }
     //}
 }
-
-void SignalSalir()
-{
-    gtk_widget_destroy(GTK_WIDGET(window_SD));
-}
-//borrar
-void on_SalirDelPrograma_clicked()
-{
-    gtk_widget_destroy(window_SD);
-}
-//
-
+//Iniciar calculo 3
 void CrearTabla(){
                    
     grid2 = gtk_grid_new ();
@@ -401,38 +393,7 @@ void CrearTabla(){
     gtk_widget_show (grid2);   
     
 }
-//borrar
-int on_guardar_SD_clicked ()
-{
-    if(tiempototal==-1){
-    	gtk_label_set_text(GTK_LABEL(result), "Tiene que poner la información primero");
-        return 0;
-    }
-
-    char * filename[250];
-
-    char* name = gtk_entry_get_text (filenameEntry);
-
-    if(strlen(name)==0){
-        gtk_label_set_text(GTK_LABEL(result), "Escriba el nombre del archivo.");
-        return 0;
-    }
-
-    char* folderfile = gtk_file_chooser_get_filename(folder);
-    if(folderfile==NULL){
-        gtk_label_set_text(GTK_LABEL(result), "Selecione un folder.");
-        return 0;
-    }
-
-    sprintf(filename,"%s/%s", folderfile, name);
-
-    writeFile(filename);
-
-    gtk_entry_set_text (filenameEntry, "");
-    gtk_label_set_text(GTK_LABEL(result), "Se guardó exitosamente.");
-
-}
-//
+//Activa la funcionalidad de cargar
 void SignalAbrir(gpointer window)
 {
     GtkWidget *dialog;
@@ -447,6 +408,7 @@ void SignalAbrir(gpointer window)
     gtk_widget_destroy(dialog);
 }
 
+//Activa la funcionalidad de guardar
 void SignalSalvar()
 {
     GtkWidget *dialog;
@@ -462,6 +424,7 @@ void SignalSalvar()
 
 }
 
+//Guarda los datos de un archivo
 void writeFile(char* filename)
 {
 
@@ -473,7 +436,7 @@ void writeFile(char* filename)
     fprintf(file, "%i\n", vidaUtil);
 	const gchar *cant_nodos;
     for(int i=1;i<=vidaUtil;i++){ 
-        for(int j=2;j<4;j++){
+        for(int j=2;j<5;j++){
             const gchar *cant_nodos;
             cant_nodos = gtk_entry_get_text(gtk_grid_get_child_at (gridt,j,i));
             int valor = atoi(cant_nodos);
@@ -485,20 +448,7 @@ void writeFile(char* filename)
 }
 
 
-//borrar
-int on_btn_cargar_SD_clicked(){
-    const gchar *filename;
-    filename = gtk_file_chooser_get_filename (entry_cargar_SD);
-    if(filename==NULL){
-
-        gtk_label_set_text(GTK_LABEL(result), "Selecione un archivo.");
-        return 0;
-    }
-    readFile(filename);
-}
-
-//
-
+//Lee y carga un archivo guardado
 void readFile(char* filename)
 {    
 
@@ -528,7 +478,7 @@ void readFile(char* filename)
 
 
     for(int i=1;i<=vidaUtil;i++){ 
-        for(int j=2;j<4;j++){         
+        for(int j=2;j<5;j++){         
 
             fgets(array, sizeof(array), file);
             strip(array); //Quita espacios null
@@ -538,22 +488,17 @@ void readFile(char* filename)
 
 
     fclose(file);
-    
 
-   
-
-
- 
 }
 
-
+//Carga los datos si puede cuando se cambia el valor del combo
 
 void on_vidaUtil_changed(GtkWidget *widget){
     GtkComboBox *combo_box = widget;
     vidaUtil = gtk_combo_box_get_active (combo_box)+1;
     on_aceptPlan_clicked();
 }
-
+// Capta los datos de vida ultil, plan, y costo
 int on_aceptPlan_clicked(){
     
     deleteTablesGrid(tabla_input);    
@@ -567,11 +512,11 @@ int on_aceptPlan_clicked(){
     int c = atoi(pln);
 
     if(c<=0){
-        gtk_label_set_text(GTK_LABEL(result), "El costo tiene que ser mayor que 0.");
+        gtk_label_set_text(GTK_LABEL(result), "El costo debe ser > 0.");
         return 0;
     }
     if(t<=0||t > 30){
-        gtk_label_set_text(GTK_LABEL(result), "El plan tiene que ser mayor que 0 y menor que 30");
+        gtk_label_set_text(GTK_LABEL(result), "El plan debe ser > 0 y < 30");
         return 0;
     }
     costoini = c;
@@ -590,7 +535,7 @@ int on_aceptPlan_clicked(){
     for (int i = 0; i <= vidaUtil; i++)
     {
         
-        for(int j = 0; j < 4; j++)
+        for(int j = 0; j < 5; j++)
         {               
             if(i==0){ 
                 GtkWidget *labelf = gtk_label_new (strs[j-1]);  
@@ -604,6 +549,7 @@ int on_aceptPlan_clicked(){
             if(j>1&&i!=0){
             GtkWidget *entry = gtk_entry_new();
             gtk_entry_set_width_chars(entry,3);
+            gtk_entry_set_text(entry,"0");
             gtk_grid_attach(GTK_GRID(gridt), entry, j, i, 1, 1);
             gtk_widget_show (entry);}
         }
@@ -646,6 +592,11 @@ void strip(char *s) {
     *p2 = '\0';
 }
 
+//Activa la funcionalidad de Salir del programa
+void SignalSalir()
+{
+    gtk_widget_destroy(GTK_WIDGET(window_SD));
+}
 
 
 
