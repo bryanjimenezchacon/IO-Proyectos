@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkWindow" id="window_SD">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Algoritmo de Floyd</property>
+    <property name="window_position">center</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="cont_fijo_SD">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkImage" id="fondo_SD">
+            <property name="width_request">100</property>
+            <property name="height_request">94</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="x">-296</property>
+            <property name="y">-131</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="cont_caja_principal_SD">
+            <property name="width_request">100</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_top">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox" id="cont_caja_titulo_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_titulo_SD">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Reemplazo de Equipos</property>
+                    <property name="justify">center</property>
+                    <attributes>
+                      <attribute name="font-desc" value="DejaVu Serif Bold Italic 11"/>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="foreground" value="#000000000000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">5</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="cont_fijo_tabla_SD">
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkFixed" id="tabla_SD">
+                    <property name="width_request">32</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="img_tabla_SD">
+                        <property name="width_request">400</property>
+                        <property name="height_request">253</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixbuf">blue_00a2e8.jpg</property>
+                      </object>
+                      <packing>
+                        <property name="x">-830</property>
+                        <property name="y">-277</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="cont_datos_SD">
+                        <property name="width_request">470</property>
+                        <property name="height_request">470</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkBox" id="box1">
+                            <property name="width_request">100</property>
+                            <property name="height_request">80</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkFixed" id="datos_SD">
+                                <property name="width_request">628</property>
+                                <property name="height_request">447</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="label1">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">29</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Vida Útil</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">6</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBoxText" id="vidaU">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">30</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">0</property>
+                                    <items>
+                                      <item id="1" translatable="yes">1</item>
+                                      <item id="2" translatable="yes">2</item>
+                                      <item id="3" translatable="yes">3</item>
+                                      <item id="4" translatable="yes">4</item>
+                                      <item id="5" translatable="yes">5</item>
+                                      <item id="6" translatable="yes">6</item>
+                                      <item id="7" translatable="yes">7</item>
+                                      <item id="8" translatable="yes">8</item>
+                                      <item id="9" translatable="yes">9</item>
+                                      <item id="10" translatable="yes">10</item>
+                                    </items>
+                                    <signal name="changed" handler="on_vidaUtil_changed" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">97</property>
+                                    <property name="y">22</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="result">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">1</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">44</property>
+                                    <property name="y">465</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label2">
+                                    <property name="width_request">100</property>
+                                    <property name="height_request">80</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Plan</property>
+                                  </object>
+                                  <packing>
+                                    <property name="x">188</property>
+                                    <property name="y">-1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="aceptPlan">
+                                    <property name="label" translatable="yes">Aceptar</property>
+                                    <property name="width_request">87</property>
+                                    <property name="height_request">23</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <signal name="clicked" handler="on_aceptPlan_clicked" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">17</property>
+                                    <property name="y">68</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="plan">
+                                    <property name="width_request">29</property>
+                                    <property name="height_request">7</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="input_purpose">number</property>
+                                    <signal name="key-release-event" handler="on_aceptPlan_clicked" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="x">250</property>
+                                    <property name="y">-2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkScrolledWindow" id="scrolledwindow3">
+                                    <property name="width_request">426</property>
+                                    <property name="height_request">345</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="shadow_type">in</property>
+                                    <child>
+                                      <object class="GtkViewport" id="viewport3">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <child>
+                                          <object class="GtkFixed" id="tabla_input">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="x">11</property>
+                                    <property name="y">113</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="x">-2</property>
+                        <property name="y">5</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">53</property>
+                    <property name="y">20</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFixed" id="tabla_SD1">
+                    <property name="width_request">0</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="img_tabla_SD1">
+                        <property name="width_request">100</property>
+                        <property name="height_request">80</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="x">90</property>
+                        <property name="y">-17</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="tabla_sol1">
+                        <property name="width_request">272</property>
+                        <property name="height_request">437</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkScrolledWindow" id="scrolledwindow1">
+                            <property name="width_request">275</property>
+                            <property name="height_request">400</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="opacity">0.96999999999999997</property>
+                            <property name="halign">baseline</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkViewport" id="viewport1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="calculos">
+                                    <property name="width_request">117</property>
+                                    <property name="height_request">50</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="x">7</property>
+                            <property name="y">26</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="x">14</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">510</property>
+                    <property name="y">20</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFixed" id="tabla_plan">
+                    <property name="width_request">320</property>
+                    <property name="height_request">282</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow2">
+                        <property name="width_request">300</property>
+                        <property name="height_request">242</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkViewport" id="viewport2">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkFixed" id="tabla_planAux">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="x">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">815</property>
+                    <property name="y">33</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label5">
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Costo </property>
+                  </object>
+                  <packing>
+                    <property name="x">236</property>
+                    <property name="y">65</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow4">
+                    <property name="width_request">300</property>
+                    <property name="height_request">165</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <object class="GtkViewport" id="viewport4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkFixed" id="tabla_ResultOpt">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkLabel" id="resultplanes">
+                                <property name="width_request">295</property>
+                                <property name="height_request">149</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="x">1</property>
+                                <property name="y">6</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">819</property>
+                    <property name="y">288</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkMenuBar">
+                    <property name="width_request">1280</property>
+                    <property name="height_request">20</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Archivo</property>
+                        <property name="use_underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImageMenuItem" id="b_abrir">
+                                <property name="label" translatable="yes">Abrir</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">__glade_unnamed_4</property>
+                                <property name="use_stock">False</property>
+                                <signal name="activate" handler="SignalAbrir" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImageMenuItem" id="b_salvar">
+                                <property name="label" translatable="yes">Salvar</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">__glade_unnamed_5</property>
+                                <property name="use_stock">False</property>
+                                <signal name="activate" handler="SignalSalvar" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImageMenuItem" id="b_Salir">
+                                <property name="label" translatable="yes">Salir</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">__glade_unnamed_6</property>
+                                <property name="use_stock">False</property>
+                                <signal name="activate" handler="SignalSalir" swapped="no"/>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="cont_caja_calc_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">30</property>
+                <property name="spacing">5</property>
+                <property name="baseline_position">top</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separador_calcular_SD">
+                    <property name="width_request">210</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_calcular">
+                    <property name="label" translatable="yes">Calcular</property>
+                    <property name="width_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="on_btn_calcular_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="cont_caja_footer_SD">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">10</property>
+                <child>
+                  <object class="GtkSeparator" id="separador_footer_SD">
+                    <property name="width_request">902</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">6</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="x">-2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="costo">
+            <property name="width_request">100</property>
+            <property name="height_request">29</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <signal name="key-release-event" handler="on_aceptPlan_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">306</property>
+            <property name="y">87</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
