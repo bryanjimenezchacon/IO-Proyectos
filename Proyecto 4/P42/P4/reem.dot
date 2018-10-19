@@ -1,0 +1,21 @@
+digraph G {
+0 -> 2
+[color="#0A7B0B",penwidth=3.0];
+2 -> 5
+[color="#0A7B0B",penwidth=3.0];
+0 -> 3
+[color="#378BBD",penwidth=3.0];
+3 -> 5
+[color="#378BBD",penwidth=3.0];
+1 -> 3
+[color="#113DA5",penwidth=3.0];
+3 -> 5
+[color="#113DA5",penwidth=3.0];
+2 -> 5
+[color="#056328",penwidth=3.0];
+3 -> 5
+[color="#C0516A",penwidth=3.0];
+4 -> 5
+[color="#587003",penwidth=3.0];
+
+}
