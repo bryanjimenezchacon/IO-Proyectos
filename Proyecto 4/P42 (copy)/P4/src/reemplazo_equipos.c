@@ -18,7 +18,17 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include "lib/matrix.c"
- 
+
+
+/* Determines if to continue the timer or not */
+static gboolean continue_timer = FALSE;
+
+/* Determines if the timer has started */
+static gboolean start_timer = FALSE;
+
+/* Display seconds expired */
+static int sec_expired = 0; 
+
 GtkBuilder  *builder; 
 GtkWidget  *window_SD;
 
@@ -50,6 +60,12 @@ GtkWidget *label;
 GtkWidget *box;
 
 
+
+GtkWidget *image;
+GdkColor color1;
+
+GtkWidget  *windowGrafo;
+
 char *strs[50]= {"Años","Mantenimiento","Reventa", "Ganancia"};
 char *strs2[50]= {"t","G(t)","Próximo"};
 
@@ -68,45 +84,8 @@ int costoini = 0;
 int tiempototal = -1;
 int vidaUtil = 1;
 char val[3000000];
+char graf[3000000];
 
-int main(int argc, char *argv[])
-{
-    gtk_init(&argc, &argv);
- 
-    builder = gtk_builder_new();
-    gtk_builder_add_from_file (builder, "glade/Reemplazo_Equipos.glade", NULL);
- 
-    window_SD = GTK_WIDGET(gtk_builder_get_object(builder, "window_SD"));
-
-    gtk_builder_connect_signals(builder, NULL);   
-    entry_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "entry_cargar_SD"));
-    folder = GTK_WIDGET(gtk_builder_get_object(builder, "folder"));
-    filenameEntry = GTK_WIDGET(gtk_builder_get_object(builder, "filename"));
-    guardar = GTK_WIDGET(gtk_builder_get_object(builder, "guardar_SD"));
-    btn_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "btn_cargar_SD"));
-    SalirDelPrograma = GTK_WIDGET(gtk_builder_get_object(builder, "SalirDelPrograma"));
-
-    plan = GTK_WIDGET(gtk_builder_get_object(builder, "plan"));
-    vidaU = GTK_WIDGET(gtk_builder_get_object(builder, "vidaU"));
-    costo = GTK_WIDGET(gtk_builder_get_object(builder, "costo"));
-    result = GTK_WIDGET(gtk_builder_get_object(builder, "result"));
-    resultplanes = GTK_WIDGET(gtk_builder_get_object(builder, "resultplanes"));
-    tabla_planAux = GTK_WIDGET(gtk_builder_get_object(builder, "tabla_planAux"));
-    tabla_input = GTK_WIDGET(gtk_builder_get_object(builder, "tabla_input"));
-    calculos = GTK_WIDGET(gtk_builder_get_object(builder, "calculos"));
-	
-    gtk_widget_set_tooltip_text(entry_cargar_SD, "Seleccionar un archivo");
-    gtk_widget_set_tooltip_text(folder, "Seleccionar un directorio");
-    gtk_widget_set_tooltip_text(filenameEntry, "Nombre del archivo a guardar");
-    gtk_widget_set_tooltip_text(guardar, "Guarda los datos en un archivo");
-    gtk_widget_set_tooltip_text(btn_cargar_SD, "Carga el archivo seleccionado");
-    gtk_widget_set_tooltip_text(SalirDelPrograma, "Cierra el programa");
-
-    g_object_unref(builder);
-    gtk_widget_show(window_SD);               
-    gtk_main();
-    return 0;
-} 
 
 
 //Limpia la tabla para empezar
@@ -125,7 +104,7 @@ void calcularC(){
     char v[12];
     int limitador = 0;
     int reg = 0;
-    strcpy(val,"");
+    strcpy(val,"Primero los valores de Ctx son respectivamente\n(Costo = Costo inicial + mantenimiento - reventa - ganancia):\n");
     for(int i = 0;i <= vidaUtil;i++){
         limitador++;
         for(int j = 0;j < tiempototal;j++){
@@ -136,7 +115,7 @@ void calcularC(){
                 continue;
             }
             strcat(val,"C");
-            sprintf(v,"%d|%d",j+i-reg, j+limitador+i-reg);
+            sprintf(v,"%d%d",j+i-reg, j+limitador+i-reg);
             strcat(val,v);
             strcat(val," = ");
             if(j+limitador+i-reg>tiempototal-1){
@@ -145,6 +124,7 @@ void calcularC(){
                     tempo+=tabla[r][0];
                 }
                 tempo-=tabla[i][1];
+                tempo-=tabla[i][2];
                 tablaC[i][0]=tempo;
                 sprintf(v,"%d",tempo);
                 strcat(val,v);   
@@ -153,21 +133,21 @@ void calcularC(){
         reg++;
         strcat(val,"\n");
     }
-    strcat(val,"\n");
+    strcat(val,"---------------------------------------------------------------------------------------\n");
     
 }
 //Iniciar calculo 2
 void calcularG(){
     char v[12];
     int reg = 0;
-    
+    strcat(val,"Luego se aplica la recursividad, G(t) = min{C tx + G(x)}, \npara conseguir el menor costo en cada posibilidad\n");
     for(int i = 0;i <= tiempototal;i++){
         strcat(val,"\nG(");
         sprintf(v,"%d",tiempototal-i);
         strcat(val,v);
         strcat(val,") = ");
         if(i==0){
-            strcat(val,"0\n");
+            strcat(val,"0 Caso Trivial\n");
             tablaG[i][0]=0;
             continue;
         }
@@ -179,7 +159,7 @@ void calcularG(){
         for(int j = 1;j <= vidaUtil;j++){
             int temp = tablaC[j-1][0] + tablaG[i-j][0];
             strcat(val,"\nC");
-            sprintf(v,"%d|",tiempototal-i);
+            sprintf(v,"%d",tiempototal-i);
             strcat(val,v);
             sprintf(v,"%d",tiempototal-(i-j));
             strcat(val,v);
@@ -211,9 +191,14 @@ void calcularG(){
         revisarMenor(tempmenor, i);
 
         tablaG[i][0] = tempmenor;
-        strcat(val,"\n");
+        strcat(val,"\nEl menor es el valor de ");
+        sprintf(v,"%d",tempmenor);
+        strcat(val,v);
+        strcat(val,".\n");
         reg++;
     }
+        strcat(val,"---------------------------------------------------------------------------------------\n");
+
     gtk_label_set_text(GTK_LABEL(calculos), val);
 }
 
@@ -225,9 +210,11 @@ void revisarMenor(int tempmenor, int i){
     }
 }
 
+
 //Iniciar el calculo de las operaciones
 int on_btn_calcular_clicked(){
 
+	memset(graf, 0, sizeof(graf)); 
 	deleteTablesGrid(tabla_planAux);
 	gtk_label_set_text(GTK_LABEL(calculos), "");
     gtk_label_set_text(GTK_LABEL(resultplanes), "");
@@ -271,6 +258,7 @@ int on_btn_calcular_clicked(){
         strcat(val,": \n");
         mostrarPlanes(t); //Muestra los planes optimos
     }
+    digraph();
     gtk_label_set_text(GTK_LABEL(resultplanes), val);
 }
 //Muestra los planes optimos
@@ -286,12 +274,35 @@ int mostrarPlanes(int ind){
             if(tablaPlan[ind][j]!=0){
                 sprintf(v,"%d -> ",ind);
                 strcat(val,v);
+                strcat(graf,v);
                 sprintf(v,"%d\n",tablaPlan[ind][j]);
                 strcat(val,v);
+                strcat(graf,v);
+                strcat(graf,"[color=green,penwidth=3.0];");
                 mostrarPlanes(tablaPlan[ind][j]);
             }
         }
+
+      //  digraph();
     //}
+}
+
+void digraph()
+{
+    FILE *file, *fRuta;
+    file = fopen("reem.dot", "w");
+    fRuta = fopen("rut.dot", "w");
+    fprintf(file, "%s\n", "digraph G {");
+
+    fprintf(fRuta, "%s\n", "digraph G {");
+    
+    fprintf(file, "%s\n", graf);
+
+    fprintf(file, "%s", "}");    
+    fclose(file);
+
+    
+
 }
 //Iniciar calculo 3
 void CrearTabla(){
@@ -314,7 +325,7 @@ void CrearTabla(){
                 gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                 const GdkRGBA *color;
                     
-                gdk_color_parse( "#467DD9", &color );
+                gdk_color_parse( "#20B2AA", &color );
                 gtk_widget_modify_bg(box, GTK_STATE_NORMAL, &color);
                 gtk_grid_attach(GTK_GRID(grid2), box, j+1, i+1, 1, 1);
 
@@ -333,7 +344,7 @@ void CrearTabla(){
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                     const GdkRGBA *color;
                     
-                    gdk_color_parse( "#AFC6EE", &color );
+                    gdk_color_parse( "#48D1CC", &color );
                     gtk_widget_modify_bg(box, GTK_STATE_NORMAL, &color);
                     gtk_grid_attach(GTK_GRID(grid2), box, j+1, i+1, 1, 1);
 
@@ -341,15 +352,15 @@ void CrearTabla(){
                     gtk_widget_show (box);
                 }
                 else if(j==2){
-                    sprintf(val,"%s", "");
+                    sprintf(val,"%s", "|");
                     char v[100];
                     for(int r = 0; r <= tiempototal;r++){
 
                         if(tablaPlan[i][r]!=0){
                             sprintf(v,"%d", tablaPlan[i][r]);
-                            if(r+1!=tiempototal){
-                                strcat(v,", ");
-                            }
+                           // if(r+1!=tiempototal){
+                                strcat(v,"| ");
+                           // }
                             strcat(val,v);
                         }
                     }
@@ -360,7 +371,7 @@ void CrearTabla(){
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                     const GdkRGBA *color;
                                         
-                    gdk_color_parse( "#AFC6EE", &color );
+                    gdk_color_parse( "#90EE90", &color );
                     gtk_widget_modify_bg(box, GTK_STATE_NORMAL, &color);
                     gtk_grid_attach(GTK_GRID(grid2), box, j+1, i+1, 1, 1);
 
@@ -378,7 +389,7 @@ void CrearTabla(){
                     gtk_box_pack_start(GTK_BOX(box), label, 0,0,0);  
                     const GdkRGBA *color;
                                         
-                    gdk_color_parse( "#AFC6EE", &color );
+                    gdk_color_parse( "#90EE90", &color );
                     gtk_widget_modify_bg(box, GTK_STATE_NORMAL, &color);
                     gtk_grid_attach(GTK_GRID(grid2), box, j+1, i+1, 1, 1);
 
@@ -393,6 +404,58 @@ void CrearTabla(){
     gtk_widget_show (grid2);   
     
 }
+
+static gboolean
+_label_update(gpointer data)
+{
+
+
+    system("dot -Tpng reem.dot -o reem.png");
+    gtk_image_set_from_file (image, "reem.png");
+    return continue_timer;
+
+}
+
+static void
+_start_timer (GtkWidget *button, gpointer data)
+{
+    (void)button;/*Avoid compiler warnings*/
+    GtkWidget *label = data;
+    if(!start_timer)
+    {
+        g_timeout_add_seconds(1, _label_update, label);
+        start_timer = TRUE;
+        continue_timer = TRUE;
+    }
+}
+
+
+static void
+_pause_resume_timer ()
+{
+    
+    if(start_timer)
+    {
+        
+        continue_timer = !continue_timer;
+        if(continue_timer)
+        {
+            g_timeout_add_seconds(1, _label_update, label);
+        }
+        else
+        {
+            /*Decrementing because timer will be hit one more time before expiring*/
+            sec_expired--;
+        }
+    }
+}
+
+void btnCerrarGrafo_clicked_cb()
+{
+    _pause_resume_timer();
+    gtk_widget_hide(windowGrafo);
+}
+
 //Activa la funcionalidad de cargar
 void SignalAbrir(gpointer window)
 {
@@ -598,5 +661,53 @@ void SignalSalir()
     gtk_widget_destroy(GTK_WIDGET(window_SD));
 }
 
+int main(int argc, char *argv[])
+{
+    gtk_init(&argc, &argv);
+ 
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "glade/Reemplazo_Equipos.glade", NULL);
+ 
+    window_SD = GTK_WIDGET(gtk_builder_get_object(builder, "window_SD"));
+
+    gtk_builder_connect_signals(builder, NULL);   
+    entry_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "entry_cargar_SD"));
+    folder = GTK_WIDGET(gtk_builder_get_object(builder, "folder"));
+    filenameEntry = GTK_WIDGET(gtk_builder_get_object(builder, "filename"));
+    guardar = GTK_WIDGET(gtk_builder_get_object(builder, "guardar_SD"));
+    btn_cargar_SD = GTK_WIDGET(gtk_builder_get_object(builder, "btn_cargar_SD"));
+    SalirDelPrograma = GTK_WIDGET(gtk_builder_get_object(builder, "SalirDelPrograma"));
+
+
+    //Crea la ventana para el grafo
+    windowGrafo = GTK_WIDGET(gtk_builder_get_object(builder, "windowGrafo"));
+    gtk_widget_show(windowGrafo);
+	image = GTK_WIDGET(gtk_builder_get_object(builder, "image"));
+
+    plan = GTK_WIDGET(gtk_builder_get_object(builder, "plan"));
+    vidaU = GTK_WIDGET(gtk_builder_get_object(builder, "vidaU"));
+    costo = GTK_WIDGET(gtk_builder_get_object(builder, "costo"));
+    result = GTK_WIDGET(gtk_builder_get_object(builder, "result"));
+    resultplanes = GTK_WIDGET(gtk_builder_get_object(builder, "resultplanes"));
+    tabla_planAux = GTK_WIDGET(gtk_builder_get_object(builder, "tabla_planAux"));
+    tabla_input = GTK_WIDGET(gtk_builder_get_object(builder, "tabla_input"));
+    calculos = GTK_WIDGET(gtk_builder_get_object(builder, "calculos"));
+	
+    gtk_widget_set_tooltip_text(entry_cargar_SD, "Seleccionar un archivo");
+    gtk_widget_set_tooltip_text(folder, "Seleccionar un directorio");
+    gtk_widget_set_tooltip_text(filenameEntry, "Nombre del archivo a guardar");
+    gtk_widget_set_tooltip_text(guardar, "Guarda los datos en un archivo");
+    gtk_widget_set_tooltip_text(btn_cargar_SD, "Carga el archivo seleccionado");
+    gtk_widget_set_tooltip_text(SalirDelPrograma, "Cierra el programa");
+
+    g_object_unref(builder);
+    gtk_widget_show(window_SD);  
+
+    g_timeout_add(250, _label_update, image);
+    continue_timer = TRUE;
+    start_timer = TRUE;             
+    gtk_main();
+    return 0;
+} 
 
 
